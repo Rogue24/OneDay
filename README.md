@@ -1,6 +1,6 @@
 # OneDay
 
-    > SwiftUI + WidgetKit 开发实战
+    SwiftUI + WidgetKit 开发实战
 
 ## 前言
 
@@ -15,9 +15,9 @@
 
 ## 数据源
 
-- 文案由[Hitokoto]( https://hitokoto.cn)提供，接口是：https://v1.hitokoto.cn。
+- 文案由[Hitokoto](https://hitokoto.cn)提供，接口是：https://v1.hitokoto.cn。
 
-- 图片则来自于：https://picsum.photos，这个网站能提供各种精致图片，可以拼接自定义参数获取不同尺寸、滤镜的图片。
+- 图片则来自于：[LoremPicsum](https://picsum.photos)，这个网站能提供各种精致图片，可以拼接自定义参数获取不同尺寸、滤镜的图片。
 
 ## 当前进度
 
