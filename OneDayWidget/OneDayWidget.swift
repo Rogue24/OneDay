@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import Intents
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> OneDayEntry {
@@ -19,8 +18,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let family = context.family
-        OneDayModel.fetch(family: family) { model in
+        OneDayModel.fetch(family: context.family) { model in
             // policy提供下次更新的时间，可填：
             // .never：永不更新(可通过WidgetCenter更新)
             // .after(Date)：指定多久之后更新
@@ -67,7 +65,7 @@ struct OneDayWidget: Widget {
             OneDayWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("One Day")
-        .description("直戳你的心灵。")
+        .description("用心去感受每一天的心境，生命就在每天的生活里。")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

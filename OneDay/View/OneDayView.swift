@@ -21,15 +21,7 @@ struct OneDaySmallView: View {
     var model = OneDayModel.placeholder(.systemSmall)
     
     var body: some View {
-        let date = Date()
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day, .weekday], from: date)
-        
-        let year = "\(components.year!)"
-        let month = Months[components.month! - 1]
-        let day = "\(components.day!)"
-        let weekday = ShotWeekdays[components.weekday! - 1] // 星期几（注意，周日是“1”，周一是“2”。。。。）
+        let dateInfo = Date().jp.info
         
         return ZStack {
             Image(uiImage: model.bgImage)
@@ -41,14 +33,14 @@ struct OneDaySmallView: View {
             VStack(alignment: .leading) {
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(day)
+                        Text(dateInfo.day)
                             .font(.custom("DINAlternate-Bold", size: 28))
                             .foregroundColor(.white)
-                        + Text(" / \(month)")
+                        + Text(" / \(dateInfo.month)")
                             .font(.custom("DINAlternate-Bold", size: 14))
                             .foregroundColor(.white)
                         
-                        Text("\(year), \(weekday)")
+                        Text("\(dateInfo.year), \(dateInfo.weekday)")
                             .font(.custom("PingFangSC", size: 10))
                             .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9020377438)))
                     }
@@ -79,15 +71,7 @@ struct OneDayMediumView: View {
     var model = OneDayModel.placeholder(.systemMedium)
     
     var body: some View {
-        let date = Date()
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day, .weekday], from: date)
-        
-        let year = "\(components.year!)"
-        let month = Months[components.month! - 1]
-        let day = "\(components.day!)"
-        let weekday = ShotWeekdays[components.weekday! - 1] // 星期几（注意，周日是“1”，周一是“2”。。。。）
+        let dateInfo = Date().jp.info
         
         return ZStack {
             Image(uiImage: model.bgImage)
@@ -99,14 +83,14 @@ struct OneDayMediumView: View {
             VStack(alignment: .leading) {
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(day)
+                        Text(dateInfo.day)
                             .font(.custom("DINAlternate-Bold", size: 36))
                             .foregroundColor(.white)
-                        + Text(" / \(month)")
+                        + Text(" / \(dateInfo.month)")
                             .font(.custom("DINAlternate-Bold", size: 18))
                             .foregroundColor(.white)
                         
-                        Text("\(year), \(weekday)")
+                        Text("\(dateInfo.year), \(dateInfo.weekday)")
                             .font(.custom("PingFangSC", size: 11))
                             .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9020377438)))
                     }
@@ -138,15 +122,7 @@ struct OneDayLargeView: View {
     var model = OneDayModel.placeholder(.systemLarge)
     
     var body: some View {
-        let date = Date()
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day, .weekday], from: date)
-        
-        let year = "\(components.year!)"
-        let month = Months[components.month! - 1]
-        let day = "\(components.day!)"
-        let weekday = ShotWeekdays[components.weekday! - 1] // 星期几（注意，周日是“1”，周一是“2”。。。。）
+        let dateInfo = Date().jp.info
         
         return VStack(spacing: 0) {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
@@ -161,14 +137,14 @@ struct OneDayLargeView: View {
 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(day)
+                        Text(dateInfo.day)
                             .font(.custom("DINAlternate-Bold", size: 36))
                             .foregroundColor(.white)
-                        + Text(" / \(month)")
+                        + Text(" / \(dateInfo.month)")
                             .font(.custom("DINAlternate-Bold", size: 18))
                             .foregroundColor(.white)
                         
-                        Text("\(year), \(weekday)")
+                        Text("\(dateInfo.year), \(dateInfo.weekday)")
                             .font(.custom("PingFangSC", size: 11))
                             .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9020377438)))
                     }

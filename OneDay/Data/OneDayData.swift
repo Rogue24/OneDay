@@ -30,47 +30,6 @@ let RandomImageURL: (CGSize) -> String = { size in
     "https://picsum.photos/\(Int(size.width))/\(Int(size.height))?random=\(arc4random_uniform(1000))"
 }
 
-// MARK:- Extension
-
-extension WidgetFamily: JPCompatible {}
-extension JP where Base == WidgetFamily {
-    var defaultImage: UIImage {
-        switch base {
-        case .systemMedium:
-            return DefaultMediumImage
-        case .systemLarge:
-            return DefaultLargeImage
-        default:
-            return DefaultSmallImage
-        }
-    }
-    
-    var imageSize: CGSize {
-        var imageSize: CGSize
-        switch base {
-        case .systemMedium:
-            imageSize = CGSize(width: 360, height: 169)
-        case .systemLarge:
-            imageSize = CGSize(width: 360, height: 275)
-        default:
-            imageSize = CGSize(width: 169, height: 169)
-        }
-        imageSize.width *= UIScreen.mainScale
-        imageSize.height *= UIScreen.mainScale
-        return imageSize
-    }
-}
-
-extension Date: JPCompatible {}
-extension JP where Base == Date {
-    var weekdayString: String {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.month, .day, .weekday], from: base)
-        // 星期几（注意，周日是“1”，周一是“2”。。。。）
-        return components.weekday.map { Weekdays[$0 - 1] } ?? ""
-    }
-}
-
 // MARK:- Model
 
 struct OneDay: Convertible {

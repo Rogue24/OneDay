@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A32BA2626975E9D00D1F06F /* WidgetFamily.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */; };
+		1A32BA2726975F0300D1F06F /* WidgetFamily.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */; };
+		1A32BA2926975F1700D1F06F /* Date.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2826975F1700D1F06F /* Date.Extension.swift */; };
+		1A32BA2A26975F1F00D1F06F /* Date.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2826975F1700D1F06F /* Date.Extension.swift */; };
 		558A0EF42EED7B1D11B82138 /* Pods_OneDayWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7458A369139180ECA9B108E5 /* Pods_OneDayWidgetExtension.framework */; };
 		715C19302696FE3C00731B67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 715C192F2696FE3C00731B67 /* README.md */; };
 		7168494526954AE700283EB2 /* OneDayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168494426954AE700283EB2 /* OneDayApp.swift */; };
@@ -62,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFamily.Extension.swift; sourceTree = "<group>"; };
+		1A32BA2826975F1700D1F06F /* Date.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.Extension.swift; sourceTree = "<group>"; };
 		25AE96F9A9F285BD37299446 /* Pods-OneDayWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneDayWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-OneDayWidgetExtension/Pods-OneDayWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		715C192F2696FE3C00731B67 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7168494126954AE700283EB2 /* OneDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +229,8 @@
 			children = (
 				717714172695A608004239FE /* ScreenFit.Extension.swift */,
 				717714192695A639004239FE /* UIScreen.Extension.swift */,
+				1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */,
+				1A32BA2826975F1700D1F06F /* Date.Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -405,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7177141A2695A639004239FE /* UIScreen.Extension.swift in Sources */,
+				1A32BA2926975F1700D1F06F /* Date.Extension.swift in Sources */,
 				717714122695A5D4004239FE /* Asyncs.swift in Sources */,
 				7168494726954AE700283EB2 /* ContentView.swift in Sources */,
 				717714182695A608004239FE /* ScreenFit.Extension.swift in Sources */,
@@ -413,6 +422,7 @@
 				7177140E2695A588004239FE /* JP.swift in Sources */,
 				7177140C2695A55B004239FE /* Function.swift in Sources */,
 				7168494526954AE700283EB2 /* OneDayApp.swift in Sources */,
+				1A32BA2626975E9D00D1F06F /* WidgetFamily.Extension.swift in Sources */,
 				717714142695A5DA004239FE /* File.swift in Sources */,
 				7177141C2695A71A004239FE /* OneDayData.swift in Sources */,
 			);
@@ -422,11 +432,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A32BA2A26975F1F00D1F06F /* Date.Extension.swift in Sources */,
 				717714222695B5DD004239FE /* Asyncs.swift in Sources */,
 				717713FB26959267004239FE /* OneDayWidget.intentdefinition in Sources */,
 				717714232695B5E5004239FE /* Function.swift in Sources */,
 				717714202695B5CE004239FE /* JP.swift in Sources */,
 				717713F626959265004239FE /* OneDayWidget.swift in Sources */,
+				1A32BA2726975F0300D1F06F /* WidgetFamily.Extension.swift in Sources */,
 				717714212695B5D6004239FE /* UIScreen.Extension.swift in Sources */,
 				717714242695B630004239FE /* OneDayView.swift in Sources */,
 				7177141F2695B5C5004239FE /* OneDayData.swift in Sources */,
