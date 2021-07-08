@@ -35,4 +35,20 @@ extension JP where Base == WidgetFamily {
         imageSize.height *= UIScreen.mainScale
         return imageSize
     }
+    
+    var familyName: String {
+        switch base {
+        case .systemMedium: return "中杯"
+        case .systemLarge: return "大杯"
+        default: return "小杯"
+        }
+    }
+    
+    var delay: TimeInterval {
+        switch base {
+        case .systemMedium: return 1
+        case .systemLarge: return 2
+        default: return 0
+        }
+    }
 }

@@ -37,7 +37,7 @@ struct OneDay: Convertible {
     let uuid: String = ""
     let type: String = ""
     let from: String = ""
-    let from_who: String = ""
+    let from_who: String? = nil
     let creator: String = ""
     let creator_uid: Int = 0
     let reviewer: Int = 0
@@ -62,39 +62,48 @@ struct OneDayModel {
     }
     
     static func fetch(family: WidgetFamily, completion: @escaping (OneDayModel) -> Void) {
-        Asyncs.async {
+        // 如果同时多种 Widget 一起请求 Hitokoto 接口，很大几率会失败其中一个以上，所以根据类型分别延时请求吧
+        Asyncs.asyncDelay(family.jp.delay) {
             let group = DispatchGroup()
             
+            let familyName = family.jp.familyName
+            JPrint(familyName, "开始请求")
+            
             var oneDay: OneDay? = nil
-            var bgImage: UIImage? = nil
-            var error: Error? = nil
-            
-            let hitokotoTask = URLSession.shared.dataTask(with: URL(string: HitokotoURL)!) { (data, _, e) in
+            let hitokotoTask = URLSession.shared.dataTask(with: URL(string: HitokotoURL)!) { (data, _, error) in
                 defer { group.leave() }
-                error = e
-                guard let data = data,
-                      let json = JSON(data).dictionary else { return }
-                oneDay = json.kj.model(OneDay.self)
+                if let error = error {
+                    JPrint(familyName, "请求失败", error)
+                    return
+                }
+                guard let data = data, data.count > 0 else {
+                    JPrint(familyName, "请求失败 没有数据")
+                    return
+                }
+                guard let dict = JSON(data).dictionary else {
+                    JPrint(familyName, "请求失败 数据解析失败")
+                    return
+                }
+                oneDay = dict.kj.model(OneDay.self)
             }
-            
-            let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { (data, _, e) in
-                defer { group.leave() }
-                error = e
-                guard let data = data else { return }
-                bgImage = UIImage(data: data)
-            }
-            
             group.enter()
             hitokotoTask.resume()
             
+            var bgImage: UIImage? = nil
+            let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { (data, _, _) in
+                defer { group.leave() }
+                guard let data = data else {
+                    JPrint(familyName, "请求图片失败")
+                    return
+                }
+                bgImage = UIImage(data: data)
+            }
             group.enter()
             imageTask.resume()
             
             group.notify(queue: DispatchQueue.main) {
-                if let error = error {
-                    JPrint("请求失败 --- \(error)")
-                } else if oneDay == nil {
-                    JPrint("请求失败 --- 没有数据")
+                if let oneDay = oneDay {
+                    JPrint(familyName, "请求成功", oneDay.hitokoto)
                 }
                 completion(OneDayModel(content: oneDay.map { $0.hitokoto } ?? FailedContent,
                                        bgImage: bgImage ?? family.jp.defaultImage))
