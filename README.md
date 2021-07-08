@@ -11,11 +11,13 @@
 ![medium_small_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/medium_small_example.jpg)
 ![large_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/large_example.jpg)
 
-小组件每隔10分钟左右会刷新一次，并且提供小杯、中杯、大杯三种尺寸。
+小组件每隔10分钟左右会刷新一次，并且提供**小杯**、**中杯**、**大杯**三种尺寸。
+
+效果个人感觉还是挺不错的，很适合装饰桌面😆
 
 ## 数据源
 
-- 文案由[Hitokoto](https://hitokoto.cn)提供，接口是：https://v1.hitokoto.cn。
+- 文案由 [Hitokoto](https://hitokoto.cn) 提供，很多不错的段子和毒鸡汤，接口是：https://v1.hitokoto.cn
 
 - 图片则来自于：[LoremPicsum](https://picsum.photos)，这个网站能提供各种精致图片，可以拼接自定义参数获取不同尺寸、滤镜的图片。
 
@@ -25,9 +27,10 @@
 
 由于刚开始学习SwiftUI没多久，很多语法还在摸索当中，日后会逐渐完善，接下来的计划：
 
-    1.可以自定义照片作为背景图；
-    2.可以自定义文案；
-    3.可以自定义摆放文字位置。
+    1.适配iPad尺寸；
+    2.可以自定义照片作为背景图；
+    3.可以自定义文案；
+    4.可以自定义摆放文字位置。
     
 ## 疑惑
 
@@ -54,4 +57,4 @@ func getTimeline(for configuration: ConfigurationIntent, in context: Context, co
 
 感谢设计小哥哥提供的设计图，另外还要感谢公司的设计小姐姐给出的建议和Logo。
 
-如果感觉效果不错，可以下载安装体验一下，又或者给个Star，日后会不断完善其他功能😝
+如果感觉效果不错，可以下载安装体验一下，喜欢的话不妨给个Star，日后会不断完善其他功能~😊
