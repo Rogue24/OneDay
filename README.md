@@ -54,4 +54,4 @@ func getTimeline(for configuration: ConfigurationIntent, in context: Context, co
 
 感谢设计小哥哥提供的设计图，另外还要感谢公司的设计小姐姐给出的建议和Logo。
 
-如果感觉效果不错，可以下载安装体验一下，日后会不断完善其他功能的~
+如果感觉效果不错，可以下载安装体验一下，又或者给个Star，日后会不断完善其他功能~
