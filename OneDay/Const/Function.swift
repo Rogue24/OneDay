@@ -8,12 +8,6 @@
 
 import UIKit
 
-private let hhmmssSSFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "hh:mm:ss:SS"
-    return formatter
-}()
-
 func JPrint(_ msg: Any..., file: NSString = #file, line: Int = #line, fn: String = #function) {
 #if DEBUG
     guard msg.count != 0, let lastItem = msg.last else { return }

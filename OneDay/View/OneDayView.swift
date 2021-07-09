@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 // MARK:- 自定义Modifier
 struct ShadowModifier: ViewModifier {
@@ -107,8 +108,8 @@ struct OneDayMediumView: View {
                     .modifier(ShadowModifier())
             }
             .padding(.horizontal, 31)
-            .padding(.top, 15)
-            .padding(.bottom, 27)
+            .padding(.top, 13)
+            .padding(.bottom, 25)
         }
         .frame(minWidth: 0, maxWidth: .infinity,
                minHeight: 0, maxHeight: .infinity)
@@ -180,21 +181,25 @@ struct OneDayLargeView: View {
 
 struct OneDayView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollView {
+        let smallSize = WidgetFamily.systemSmall.jp.widgetSize
+        let mediumSize = WidgetFamily.systemMedium.jp.widgetSize
+        let largeSize = WidgetFamily.systemLarge.jp.widgetSize
+        
+        return ScrollView {
             OneDaySmallView()
-                .frame(width: 169, height: 169)
+                .frame(width: smallSize.width, height: smallSize.height)
                 .cornerRadius(20)
                 .padding()
                 .modifier(ShadowModifier())
             
             OneDayMediumView()
-                .frame(width: 360, height: 169)
+                .frame(width: mediumSize.width, height: mediumSize.height)
                 .cornerRadius(20)
                 .padding()
                 .modifier(ShadowModifier())
 
             OneDayLargeView()
-                .frame(width: 360, height: 376)
+                .frame(width: largeSize.width, height: largeSize.height)
                 .cornerRadius(20)
                 .padding()
                 .modifier(ShadowModifier())

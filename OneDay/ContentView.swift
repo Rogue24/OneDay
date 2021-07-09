@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     var body: some View {
@@ -20,9 +21,15 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding()
                 
-                Text("退出App会自行刷新一次小组件")
-                    .font(.system(size: 15))
-                    .foregroundColor(Color.white.opacity(0.75))
+                Button(action: {
+                    // 刷新所有小组件
+                    WidgetCenter.shared.reloadAllTimelines()
+                }, label: {
+                    Text("点我刷新小组件")
+                        .font(.system(size: 15))
+                        .foregroundColor(Color.white.opacity(0.75))
+                        .padding()
+                })
             }
         }
     }

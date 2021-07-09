@@ -7,8 +7,6 @@
 
 import UIKit
 
-let BasisWScale: CGFloat = min(UIScreen.mainWidth, UIScreen.mainHeight) / 375.0
-
 extension Int {
     var px: CGFloat { CGFloat(self) * BasisWScale }
 }
