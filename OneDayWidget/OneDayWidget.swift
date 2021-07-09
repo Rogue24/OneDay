@@ -18,17 +18,17 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        OneDayModel.fetch(family: context.family) { model in
-            // policy提供下次更新的时间，可填：
-            // .never：永不更新(可通过WidgetCenter更新)
-            // .after(Date)：指定多久之后更新
-            // .atEnd：指定Widget通过你提供的entries的Date更新。
+        OneDayModel.fetch(context: context) { model in
+            /// policy提供下次更新的时间，可填：
+            /// .never：永不更新(可通过WidgetCenter更新)
+            /// .after(Date)：指定多久之后更新
+            /// .atEnd：指定Widget通过你提供的entries的Date更新。
             let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: Date())!
             
-            // entries提供下次更新的数据
+            /// entries提供下次更新的数据
             let entry = OneDayEntry(date: refreshDate, model: model)
             
-            // 刷新数据和控制下一步刷新时间
+            /// 刷新数据和控制下一步刷新时间
             let timeline = Timeline(entries: [entry], policy: .atEnd)
             completion(timeline)
         }

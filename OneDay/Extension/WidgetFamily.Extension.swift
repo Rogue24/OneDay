@@ -102,7 +102,7 @@ extension JP where Base == WidgetFamily {
         switch base {
         case .systemLarge:
             imageSize = widgetSize
-            imageSize.height -= 100
+            imageSize.height -= OneDayLargeView.bottomContentHeight
         default:
             imageSize = widgetSize
         }

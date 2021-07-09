@@ -63,6 +63,7 @@ struct OneDaySmallView: View {
         }
         .frame(minWidth: 0, maxWidth: .infinity,
                minHeight: 0, maxHeight: .infinity)
+        .background(Color.white)
         .clipped()
     }
 }
@@ -113,6 +114,7 @@ struct OneDayMediumView: View {
         }
         .frame(minWidth: 0, maxWidth: .infinity,
                minHeight: 0, maxHeight: .infinity)
+        .background(Color.white)
         .clipped()
     }
 
@@ -120,6 +122,8 @@ struct OneDayMediumView: View {
 
 // MARK:- Large Widget
 struct OneDayLargeView: View {
+    static let bottomContentHeight: CGFloat = 100
+    
     var model = OneDayModel.placeholder(.systemLarge)
     
     var body: some View {
@@ -170,7 +174,7 @@ struct OneDayLargeView: View {
                 .padding(.horizontal, 24)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 100)
+            .frame(height: Self.bottomContentHeight)
         }
         .frame(minWidth: 0, maxWidth: .infinity,
                minHeight: 0, maxHeight: .infinity)

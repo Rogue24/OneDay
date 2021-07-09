@@ -41,7 +41,8 @@ struct OneDayModel {
         OneDayModel(content: DefaultContent, bgImage: family.jp.defaultImage)
     }
     
-    static func fetch(family: WidgetFamily, completion: @escaping (OneDayModel) -> Void) {
+    static func fetch(context: TimelineProviderContext, completion: @escaping (OneDayModel) -> Void) {
+        let family = context.family
         // 如果同时多种 Widget 一起请求 Hitokoto 接口，很大几率会失败其中一个以上，所以根据类型分别延时请求吧
         Asyncs.asyncDelay(family.jp.delay) {
             let group = DispatchGroup()
