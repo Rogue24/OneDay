@@ -123,6 +123,7 @@ struct OneDayMediumView: View {
 // MARK:- Large Widget
 struct OneDayLargeView: View {
     static let bottomContentHeight: CGFloat = 100
+    @Environment(\.colorScheme) var colorScheme
     
     var model = OneDayModel.placeholder(.systemLarge)
     
@@ -164,12 +165,12 @@ struct OneDayLargeView: View {
                 HStack(alignment: .center, spacing: 10) {
                     Text(model.content)
                         .font(.custom("PingFangSC", size: 15))
-                        .foregroundColor(Color(#colorLiteral(red: 0.2470588235, green: 0.2470588235, blue: 0.2705882353, alpha: 1)))
+                        .foregroundColor(colorScheme == .dark ? Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9007571473)) : Color(#colorLiteral(red: 0.2470588235, green: 0.2470588235, blue: 0.2705882353, alpha: 1)))
                         .lineSpacing(5)
                     Spacer()
                     Text("今日\n语录")
                         .font(.custom("PingFangSC", size: 21))
-                        .foregroundColor(Color(#colorLiteral(red: 0.5647058824, green: 0.5647058824, blue: 0.5647058824, alpha: 1)))
+                        .foregroundColor(colorScheme == .dark ? Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)) : Color(#colorLiteral(red: 0.5647058824, green: 0.5647058824, blue: 0.5647058824, alpha: 1)))
                 }
                 .padding(.horizontal, 24)
             }
@@ -178,7 +179,7 @@ struct OneDayLargeView: View {
         }
         .frame(minWidth: 0, maxWidth: .infinity,
                minHeight: 0, maxHeight: .infinity)
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color(#colorLiteral(red: 0.1927119253, green: 0.191394761, blue: 0.2468924029, alpha: 1)) : Color.white)
         .clipped()
     }
 }
