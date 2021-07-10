@@ -109,7 +109,7 @@ struct OneDayMediumView: View {
                     .modifier(ShadowModifier())
             }
             .padding(.horizontal, 31)
-            .padding(.top, 13)
+            .padding(.top, 15)
             .padding(.bottom, 25)
         }
         .frame(minWidth: 0, maxWidth: .infinity,
