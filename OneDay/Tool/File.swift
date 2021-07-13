@@ -2,8 +2,8 @@
 //  File.swift
 //  app
 //
-//  Created by aa on 2020/11/13.
-//  Copyright © 2020 Quwan. All rights reserved.
+//  Created by 周健平 on 2021/7/14.
+//  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
 import Foundation
