@@ -12,85 +12,102 @@ extension WidgetFamily: JPCompatible {}
 extension JP where Base == WidgetFamily {
     var defaultImage: UIImage {
         switch base {
-        case .systemMedium:
-            return DefaultMediumImage
-        case .systemLarge:
-            return DefaultLargeImage
-        default:
-            return DefaultSmallImage
+        case .systemLarge: return DefaultLargeImage
+        case .systemMedium: return DefaultMediumImage
+        default: return DefaultSmallImage
         }
     }
     
     var familyName: String {
         switch base {
-        case .systemMedium: return "中杯"
         case .systemLarge: return "大杯"
+        case .systemMedium: return "中杯"
         default: return "小杯"
         }
     }
     
     var delay: TimeInterval {
         switch base {
-        case .systemMedium: return 1
         case .systemLarge: return 2
+        case .systemMedium: return 1
         default: return 0
         }
     }
     
     var widgetSize: CGSize {
         switch PortraitScreenWidth {
-        case 414...:
+        case 428: // 428 x 926 - iPhone 12 Pro Max
+            switch base {
+            case .systemLarge:
+                return CGSize(width: 364, height: 382)
+            case .systemMedium:
+                return CGSize(width: 364, height: 170)
+            default:
+                return CGSize(width: 170, height: 170)
+            }
+        
+        case 414:
             switch PortraitScreenHeight {
-            case 896...:
+            case 896:  // 414 x 896 - iPhone 11 Pro Max
                 switch base {
-                case .systemMedium:
-                    return CGSize(width: 360, height: 169)
                 case .systemLarge:
                     return CGSize(width: 360, height: 379)
+                case .systemMedium:
+                    return CGSize(width: 360, height: 169)
                 default:
                     return CGSize(width: 169, height: 169)
                 }
                 
-            default: // 736
+            default: // 414 x 736 - iPhone 8 Plus
                 switch base {
-                case .systemMedium:
-                    return CGSize(width: 348, height: 159)
                 case .systemLarge:
-                    return CGSize(width: 348, height: 357)
+                    return CGSize(width: 348, height: 351)
+                case .systemMedium:
+                    return CGSize(width: 348, height: 157)
                 default:
-                    return CGSize(width: 159, height: 159)
+                    return CGSize(width: 157, height: 157)
                 }
+            }
+            
+        case 390: // 390 x 844 - iPhone 12 Pro
+            switch base {
+            case .systemLarge:
+                return CGSize(width: 338, height: 354)
+            case .systemMedium:
+                return CGSize(width: 338, height: 158)
+            default:
+                return CGSize(width: 158, height: 158)
             }
             
         case 375:
             switch PortraitScreenHeight {
-            case 812...:
+            case 812: // 375 x 812 - iPhone X & iPhone 12 min
                 switch base {
-                case .systemMedium:
-                    return CGSize(width: 329, height: 155)
                 case .systemLarge:
                     return CGSize(width: 329, height: 345)
+                case .systemMedium:
+                    return CGSize(width: 329, height: 155)
                 default:
                     return CGSize(width: 155, height: 155)
                 }
                 
-            default: // 667
+            default: // 375 x 667 - iPhone 8
                 switch base {
-                case .systemMedium:
-                    return CGSize(width: 321, height: 148)
                 case .systemLarge:
                     return CGSize(width: 321, height: 324)
+                case .systemMedium:
+                    return CGSize(width: 321, height: 148)
                 default:
                     return CGSize(width: 148, height: 148)
                 }
             }
             
-        default: // 320x568
+        default: // 320 x 568 - iPhone 5s
             switch base {
-            case .systemMedium:
-                return CGSize(width: 292, height: 141)
             case .systemLarge:
                 return CGSize(width: 292, height: 311)
+            case .systemMedium:
+                return CGSize(width: 292, height: 141)
             default:
                 return CGSize(width: 141, height: 141)
             }
@@ -98,16 +115,12 @@ extension JP where Base == WidgetFamily {
     }
     
     var imageSize: CGSize {
-        var imageSize: CGSize
-        switch base {
-        case .systemLarge:
-            imageSize = widgetSize
+        var imageSize = widgetSize
+        if base == .systemLarge {
             imageSize.height -= OneDayLargeView.bottomContentHeight
-        default:
-            imageSize = widgetSize
         }
-        imageSize.width *= UIScreen.mainScale
-        imageSize.height *= UIScreen.mainScale
+        imageSize.width *= ScreenScale
+        imageSize.height *= ScreenScale
         return imageSize
     }
 }
