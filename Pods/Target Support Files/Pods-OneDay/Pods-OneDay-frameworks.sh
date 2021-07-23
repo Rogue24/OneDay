@@ -175,10 +175,12 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/JPImageresizerView/JPImageresizerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KakaJSON/KakaJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/JPImageresizerView/JPImageresizerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KakaJSON/KakaJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi

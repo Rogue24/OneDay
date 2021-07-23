@@ -15,5 +15,6 @@ target 'OneDayWidgetExtension' do
 
 pod 'SwiftyJSON'
 pod 'KakaJSON'
+pod 'JPImageresizerView'
 
 end

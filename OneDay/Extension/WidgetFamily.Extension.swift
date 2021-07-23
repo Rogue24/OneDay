@@ -123,4 +123,18 @@ extension JP where Base == WidgetFamily {
         imageSize.height *= ScreenScale
         return imageSize
     }
+    
+    var imageCachePath: String {
+        var cachePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.zhoujianping.OneDay")!.path
+        cachePath += "/"
+        switch base {
+        case .systemLarge:
+            cachePath += "jp_image_large.jpeg"
+        case .systemMedium:
+            cachePath += "jp_image_medium.jpeg"
+        default:
+            cachePath += "jp_image_small.jpeg"
+        }
+        return cachePath
+    }
 }

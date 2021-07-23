@@ -9,6 +9,40 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: IntentTimelineProvider {
+    
+    @AppStorage("largeImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var largeImgPath: String = ""
+    @AppStorage("largeText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var largeText: String = ""
+    
+    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var mediumImgPath: String = ""
+    @AppStorage("mediumText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var mediumText: String = ""
+    
+    @AppStorage("smallImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var smallImgPath: String = ""
+    @AppStorage("smallText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    var smallText: String = ""
+    
+    func getCache(_ family: WidgetFamily) -> (content: String, bgImagePath: String) {
+        let content: String
+        let bgImagePath: String
+        switch family {
+        case .systemLarge:
+            content = largeText
+            bgImagePath = largeImgPath
+        case .systemMedium:
+            content = mediumText
+            bgImagePath = mediumImgPath
+        default:
+            content = smallText
+            bgImagePath = smallImgPath
+        }
+        return (content, bgImagePath)
+    }
+    
+    
     func placeholder(in context: Context) -> OneDayEntry {
         OneDayEntry(date: Date(), model: OneDayModel.placeholder(context.family))
     }
@@ -18,12 +52,15 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        OneDayModel.fetch(context: context) { model in
+        let cache = getCache(context.family)
+        OneDayModel.fetch(context: context,
+                          content: cache.content,
+                          bgImagePath: cache.bgImagePath) { model in
             /// policy提供下次更新的时间，可填：
             /// .never：永不更新(可通过WidgetCenter更新)
             /// .after(Date)：指定多久之后更新
             /// .atEnd：指定Widget通过你提供的entries的Date更新。
-            let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: Date())!
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: Date())!
             
             /// entries提供下次更新的数据
             let entry = OneDayEntry(date: refreshDate, model: model)

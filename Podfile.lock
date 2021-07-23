@@ -1,20 +1,24 @@
 PODS:
+  - JPImageresizerView (1.9.3)
   - KakaJSON (1.1.2)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
+  - JPImageresizerView
   - KakaJSON
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - JPImageresizerView
     - KakaJSON
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  JPImageresizerView: cc5d6d4357ad9b45f9321ecb58769bcc66b43e46
   KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 8ebd142820c6385ea1680dee96ebd6db3974d200
+PODFILE CHECKSUM: 28faca4cadec938fd10897a0033ee880e85cbfe3
 
 COCOAPODS: 1.10.1
