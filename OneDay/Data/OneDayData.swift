@@ -59,19 +59,19 @@ struct OneDayModel {
                 let hitokotoTask = URLSession.shared.dataTask(with: URL(string: HitokotoURL)!) { (data, _, error) in
                     defer { group.leave() }
                     if let error = error {
-                        JPrint(familyName, "请求失败", error)
+                        JPrint(familyName, "文案请求失败:", error)
                         return
                     }
                     guard let data = data, data.count > 0 else {
-                        JPrint(familyName, "请求失败 没有数据")
+                        JPrint(familyName, "文案请求失败: 没有数据")
                         return
                     }
                     guard let dict = JSON(data).dictionary else {
-                        JPrint(familyName, "请求失败 数据解析失败")
+                        JPrint(familyName, "文案请求失败: 数据解析失败")
                         return
                     }
                     let oneDay = dict.kj.model(OneDay.self)
-                    JPrint(familyName, "请求成功", oneDay.hitokoto)
+                    JPrint(familyName, "文案请求成功:", oneDay.hitokoto)
                     kContent = oneDay.hitokoto
                 }
                 group.enter()
@@ -88,7 +88,7 @@ struct OneDayModel {
                 let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { (data, _, _) in
                     defer { group.leave() }
                     guard let data = data else {
-                        JPrint(familyName, "请求图片失败")
+                        JPrint(familyName, "图片请求失败")
                         return
                     }
                     bgImage = UIImage(data: data)
