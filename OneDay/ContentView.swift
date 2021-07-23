@@ -79,6 +79,31 @@ struct ContentView: View {
                 }
             }
         }
+        .onAppear() {
+            let imgPath: String
+            switch family {
+            case .systemLarge:
+                imgPath = largeImgPath
+            case .systemMedium:
+                imgPath = mediumImgPath
+            default:
+                imgPath = smallImgPath
+            }
+            guard imgPath.count > 0 else { return }
+            let bgImage: UIImage
+            if imgPath.count > 0 {
+                if File.manager.fileExists(imgPath),
+                   let image = UIImage(contentsOfFile: imgPath) {
+                    bgImage = image
+                } else {
+                    bgImage = family.jp.defaultImage
+                }
+            } else {
+                bgImage = family.jp.defaultImage
+            }
+            model = OneDayModel(content: DefaultContent,
+                                bgImage: bgImage)
+        }
         .fullScreenCover(isPresented: $showImageCroper, onDismiss: imageCropDismiss) {
             ImageCroperView(cropImage: $photo, family: $family)
         }
