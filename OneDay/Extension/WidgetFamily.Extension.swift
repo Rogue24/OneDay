@@ -125,7 +125,7 @@ extension JP where Base == WidgetFamily {
     }
     
     var imageCachePath: String {
-        var cachePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.zhoujianping.OneDay")!.path
+        var cachePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppGroupIdentifier)!.path
         cachePath += "/"
         switch base {
         case .systemLarge:

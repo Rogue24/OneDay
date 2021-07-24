@@ -8,21 +8,23 @@
 import WidgetKit
 import SwiftUI
 
+let AppGroupIdentifier = "group.zhoujianping.OneDay"
+
 struct Provider: IntentTimelineProvider {
     
-    @AppStorage("largeImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("largeImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var largeImgPath: String = ""
-    @AppStorage("largeText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("largeText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var largeText: String = ""
     
-    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var mediumImgPath: String = ""
-    @AppStorage("mediumText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("mediumText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var mediumText: String = ""
     
-    @AppStorage("smallImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("smallImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var smallImgPath: String = ""
-    @AppStorage("smallText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("smallText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var smallText: String = ""
     
     func getCache(_ family: WidgetFamily) -> (content: String, bgImagePath: String) {
@@ -41,7 +43,6 @@ struct Provider: IntentTimelineProvider {
         }
         return (content, bgImagePath)
     }
-    
     
     func placeholder(in context: Context) -> OneDayEntry {
         OneDayEntry(date: Date(), model: OneDayModel.placeholder(context.family))

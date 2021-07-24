@@ -11,19 +11,19 @@ import UIKit
 
 struct ContentView: View {
     
-    @AppStorage("largeImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("largeImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var largeImgPath: String = ""
-    @AppStorage("largeText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("largeText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var largeText: String = ""
     
-    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var mediumImgPath: String = ""
-    @AppStorage("mediumText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("mediumText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var mediumText: String = ""
     
-    @AppStorage("smallImgPath", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("smallImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
     var smallImgPath: String = ""
-    @AppStorage("smallText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
+    @AppStorage("smallText", store: UserDefaults(suiteName: AppGroupIdentifier))
     var smallText: String = ""
     
     @State var showImagePicker = false

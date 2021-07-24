@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let AppGroupIdentifier = "group.zhoujianping.OneDay"
+
 @main
 struct OneDayApp: App {
     var body: some Scene {

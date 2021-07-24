@@ -34,7 +34,6 @@ struct ImageCroperView: UIViewControllerRepresentable {
     
 }
 
-
 class ImageCroperCoordinator: NSObject, CropViewControllerDelegate {
     
     var croper: ImageCroperView

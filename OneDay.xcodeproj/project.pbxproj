@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A01877326ABDFFE00F1D064 /* ImageCroperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */; };
+		1A01877426ABDFFE00F1D064 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */; };
+		1A01877826ABE00A00F1D064 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A01877626ABE00A00F1D064 /* CropViewController.xib */; };
+		1A01877926ABE00A00F1D064 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A01877726ABE00A00F1D064 /* CropViewController.swift */; };
 		1A32BA2626975E9D00D1F06F /* WidgetFamily.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */; };
 		1A32BA2726975F0300D1F06F /* WidgetFamily.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */; };
 		1A32BA2926975F1700D1F06F /* Date.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32BA2826975F1700D1F06F /* Date.Extension.swift */; };
@@ -42,10 +46,6 @@
 		717714222695B5DD004239FE /* Asyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717714112695A5D4004239FE /* Asyncs.swift */; };
 		717714232695B5E5004239FE /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7177140A2695A55B004239FE /* Function.swift */; };
 		717714242695B630004239FE /* OneDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717714072695A52A004239FE /* OneDayView.swift */; };
-		717ACE2C26A9787400BA82A6 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717ACE2B26A9787400BA82A6 /* ImagePickerView.swift */; };
-		717ACE3326A981F400BA82A6 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717ACE3126A981F400BA82A6 /* CropViewController.swift */; };
-		717ACE3426A981F400BA82A6 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 717ACE3226A981F400BA82A6 /* CropViewController.xib */; };
-		717ACE3626AAA1EE00BA82A6 /* ImageCroperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717ACE3526AAA1EE00BA82A6 /* ImageCroperView.swift */; };
 		717ACE3726AAB20B00BA82A6 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717714132695A5DA004239FE /* File.swift */; };
 		E877BD79D3D6DC1F48853C4C /* Pods_OneDay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E855DAEF0819AB85E6552D55 /* Pods_OneDay.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +75,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCroperView.swift; sourceTree = "<group>"; };
+		1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		1A01877626ABE00A00F1D064 /* CropViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropViewController.xib; sourceTree = "<group>"; };
+		1A01877726ABE00A00F1D064 /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		1A32BA2526975E9D00D1F06F /* WidgetFamily.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFamily.Extension.swift; sourceTree = "<group>"; };
 		1A32BA2826975F1700D1F06F /* Date.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.Extension.swift; sourceTree = "<group>"; };
 		25AE96F9A9F285BD37299446 /* Pods-OneDayWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneDayWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-OneDayWidgetExtension/Pods-OneDayWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,10 +108,6 @@
 		7177141B2695A71A004239FE /* OneDayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayData.swift; sourceTree = "<group>"; };
 		717ACE2926A95B8B00BA82A6 /* OneDay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneDay.entitlements; sourceTree = "<group>"; };
 		717ACE2A26A95D8C00BA82A6 /* OneDayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneDayWidgetExtension.entitlements; sourceTree = "<group>"; };
-		717ACE2B26A9787400BA82A6 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
-		717ACE3126A981F400BA82A6 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
-		717ACE3226A981F400BA82A6 /* CropViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropViewController.xib; sourceTree = "<group>"; };
-		717ACE3526AAA1EE00BA82A6 /* ImageCroperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCroperView.swift; sourceTree = "<group>"; };
 		7458A369139180ECA9B108E5 /* Pods_OneDayWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneDayWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A5233878C4694F588426CC /* Pods-OneDay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneDay.debug.xcconfig"; path = "Target Support Files/Pods-OneDay/Pods-OneDay.debug.xcconfig"; sourceTree = "<group>"; };
 		93ED000A0713AE863C87CE6B /* Pods-OneDayWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneDayWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneDayWidgetExtension/Pods-OneDayWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +137,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A01877026ABDFFE00F1D064 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */,
+				1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		1A01877526ABE00A00F1D064 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				1A01877726ABE00A00F1D064 /* CropViewController.swift */,
+				1A01877626ABE00A00F1D064 /* CropViewController.xib */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		5AD535749AF03734ED3051F1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,15 +194,12 @@
 				717ACE2926A95B8B00BA82A6 /* OneDay.entitlements */,
 				7168494426954AE700283EB2 /* OneDayApp.swift */,
 				7168494626954AE700283EB2 /* ContentView.swift */,
-				717ACE2B26A9787400BA82A6 /* ImagePickerView.swift */,
-				717ACE3526AAA1EE00BA82A6 /* ImageCroperView.swift */,
-				717ACE3126A981F400BA82A6 /* CropViewController.swift */,
-				717ACE3226A981F400BA82A6 /* CropViewController.xib */,
 				717714042695A4DE004239FE /* View */,
 				717714052695A4DE004239FE /* Data */,
 				717714062695A4DE004239FE /* Const */,
 				7177140F2695A59E004239FE /* Extension */,
 				717714102695A5CB004239FE /* Tool */,
+				1A01877526ABE00A00F1D064 /* UIKit */,
 				7168494826954AEA00283EB2 /* Assets.xcassets */,
 				7168494D26954AEA00283EB2 /* Info.plist */,
 				7168494A26954AEA00283EB2 /* Preview Content */,
@@ -226,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				717714072695A52A004239FE /* OneDayView.swift */,
+				1A01877026ABDFFE00F1D064 /* Coordinator */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,7 +370,7 @@
 			files = (
 				715C19302696FE3C00731B67 /* README.md in Resources */,
 				7168494C26954AEA00283EB2 /* Preview Assets.xcassets in Resources */,
-				717ACE3426A981F400BA82A6 /* CropViewController.xib in Resources */,
+				1A01877826ABE00A00F1D064 /* CropViewController.xib in Resources */,
 				7168494926954AEA00283EB2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,17 +458,17 @@
 				1A32BA2926975F1700D1F06F /* Date.Extension.swift in Sources */,
 				717714122695A5D4004239FE /* Asyncs.swift in Sources */,
 				7168494726954AE700283EB2 /* ContentView.swift in Sources */,
+				1A01877426ABDFFE00F1D064 /* ImagePickerView.swift in Sources */,
 				717714182695A608004239FE /* ScreenFit.Extension.swift in Sources */,
 				715C19372698304000731B67 /* Literal.Extension.swift in Sources */,
 				717713FC26959267004239FE /* OneDayWidget.intentdefinition in Sources */,
+				1A01877926ABE00A00F1D064 /* CropViewController.swift in Sources */,
 				717714082695A52A004239FE /* OneDayView.swift in Sources */,
 				7177140E2695A588004239FE /* JP.swift in Sources */,
+				1A01877326ABDFFE00F1D064 /* ImageCroperView.swift in Sources */,
 				7177140C2695A55B004239FE /* Function.swift in Sources */,
 				7168494526954AE700283EB2 /* OneDayApp.swift in Sources */,
-				717ACE3326A981F400BA82A6 /* CropViewController.swift in Sources */,
 				1A32BA2626975E9D00D1F06F /* WidgetFamily.Extension.swift in Sources */,
-				717ACE3626AAA1EE00BA82A6 /* ImageCroperView.swift in Sources */,
-				717ACE2C26A9787400BA82A6 /* ImagePickerView.swift in Sources */,
 				717714142695A5DA004239FE /* File.swift in Sources */,
 				7177141C2695A71A004239FE /* OneDayData.swift in Sources */,
 				715C19342698230500731B67 /* Const.swift in Sources */,
