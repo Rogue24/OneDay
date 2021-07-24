@@ -11,7 +11,7 @@
 ![medium_small_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/medium_small_example.jpg)
 ![large_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/large_example.jpg)
 
-小组件每隔10分钟左右会刷新一次，并且提供**小杯**、**中杯**、**大杯**三种尺寸。
+小组件每隔30分钟左右会刷新一次，并且提供**小杯**、**中杯**、**大杯**三种尺寸。
 
 效果个人感觉还是挺不错的，很适合装饰桌面😆
 
