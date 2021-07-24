@@ -26,16 +26,21 @@ struct ContentView: View {
     @AppStorage("smallText", store: UserDefaults(suiteName: "group.zhoujianping.OneDay"))
     var smallText: String = ""
     
-    @State var family: WidgetFamily = WidgetFamily.systemSmall
-    @State var photo: UIImage? = nil
-    @State var model: OneDayModel? = nil
-    
     @State var showImagePicker = false
     @State var showImageCroper = false
     
+    @State var photo: UIImage? = nil
+    @State var model: OneDayModel? = nil
+    @State var family: WidgetFamily = WidgetFamily.systemSmall {
+        didSet {
+            guard family != oldValue else { return }
+            updateModel()
+        }
+    }
+    
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(gradient: Gradient(colors: [Color.red, Color.yellow]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -44,6 +49,7 @@ struct ContentView: View {
                     .bold()
                     .foregroundColor(.white)
                     .padding()
+                    .padding(.top, 50)
                 
                 Button(action: {
                     // 刷新所有小组件
@@ -51,58 +57,87 @@ struct ContentView: View {
                 }, label: {
                     Text("刷新小组件")
                         .font(.system(size: 15))
-                        .foregroundColor(Color.white.opacity(0.75))
+                        .foregroundColor(Color.white.opacity(0.85))
                         .padding()
                 })
                 
                 Button(action: checkAPI, label: {
                     Text("检测接口")
                         .font(.system(size: 15))
-                        .foregroundColor(Color.white.opacity(0.75))
+                        .foregroundColor(Color.white.opacity(0.85))
                         .padding()
                 })
                 
-                Button(action: {
-                    showImagePicker.toggle()
-                }, label: {
-                    Text("打开相册")
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.white.opacity(0.75))
-                        .padding()
-                })
-                .sheet(isPresented: $showImagePicker, onDismiss: imagePickDismiss) {
-                    ImagePickerView(selectedImage: $photo)
+                HStack {
+                    Button(action: {
+                        family = .systemSmall
+                    }, label: {
+                        Text("小杯")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding(.all, 8)
+                            .background(family == .systemSmall ? Color(#colorLiteral(red: 0.08090337366, green: 0.6359872222, blue: 0.9755890965, alpha: 1)) : nil)
+                            .cornerRadius(8)
+                    })
+                    Button(action: {
+                        family = .systemMedium
+                    }, label: {
+                        Text("中杯")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding(.all, 8)
+                            .background(family == .systemMedium ? Color(#colorLiteral(red: 0.08090337366, green: 0.6359872222, blue: 0.9755890965, alpha: 1)) : nil)
+                            .cornerRadius(8)
+                    })
+                    Button(action: {
+                        family = .systemLarge
+                    }, label: {
+                        Text("大杯")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding(.all, 8)
+                            .background(family == .systemLarge ? Color(#colorLiteral(red: 0.08090337366, green: 0.6359872222, blue: 0.9755890965, alpha: 1)) : nil)
+                            .cornerRadius(8)
+                    })
                 }
                 
+                HStack {
+                    Button(action: {
+                        showImagePicker.toggle()
+                    }, label: {
+                        Text("打开相册设置\(family.jp.familyName)背景")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding()
+                    })
+                    .sheet(isPresented: $showImagePicker, onDismiss: imagePickDismiss) {
+                        ImagePickerView(selectedImage: $photo)
+                    }
+                    
+                    Button(action: {
+                        guard saveBgImageCache("") else { return }
+                        updateModel()
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }, label: {
+                        Text("\(family.jp.familyName)背景使用网络图片")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding()
+                    })
+                }
+                
+                Spacer()
                 if let model = self.model {
-                    OneDayPreviewView(family: family, model: model)
+                    VStack {
+                        OneDayPreviewView(family: $family, model: model)
+                            .padding(.bottom, 30)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 }
             }
         }
         .onAppear() {
-            let imgPath: String
-            switch family {
-            case .systemLarge:
-                imgPath = largeImgPath
-            case .systemMedium:
-                imgPath = mediumImgPath
-            default:
-                imgPath = smallImgPath
-            }
-            guard imgPath.count > 0 else { return }
-            let bgImage: UIImage
-            if imgPath.count > 0 {
-                if File.manager.fileExists(imgPath),
-                   let image = UIImage(contentsOfFile: imgPath) {
-                    bgImage = image
-                } else {
-                    bgImage = family.jp.defaultImage
-                }
-            } else {
-                bgImage = family.jp.defaultImage
-            }
-            model = OneDayModel(content: DefaultContent,
-                                bgImage: bgImage)
+            updateModel()
         }
         .fullScreenCover(isPresented: $showImageCroper, onDismiss: imageCropDismiss) {
             ImageCroperView(cropImage: $photo, family: $family)
@@ -116,44 +151,66 @@ struct ContentView: View {
     
     func imageCropDismiss() {
         let bgImagePath = photo == nil ? "" : family.jp.imageCachePath
-        let bgImage = saveBgImageCache(bgImagePath)
-        
+        guard saveBgImageCache(bgImagePath) else { return }
+        updateModel()
         photo = nil
-        model = OneDayModel(content: DefaultContent,
-                            bgImage: bgImage)
-        
         WidgetCenter.shared.reloadAllTimelines()
     }
     
-    func saveBgImageCache(_ imgPath: String) -> UIImage {
+    @discardableResult
+    func saveBgImageCache(_ imgPath: String) -> Bool {
+        let oldPath: String
         switch family {
         case .systemLarge:
-            largeText = ""
+//            largeText = ""
+            oldPath = largeImgPath
             largeImgPath = imgPath
         case .systemMedium:
-            mediumText = ""
+//            mediumText = ""
+            oldPath = mediumImgPath
             mediumImgPath = imgPath
         default:
-            smallText = ""
+//            smallText = ""
+            oldPath = smallImgPath
             smallImgPath = imgPath
         }
         
+        if imgPath.count > 0 {
+            if File.manager.fileExists(imgPath) {
+                JPrint("图片缓存成功！")
+            } else {
+                JPrint("图片缓存失败！")
+            }
+        } else {
+            JPrint("移除图片缓存！")
+        }
+        
+        return !(imgPath == "" && oldPath == imgPath)
+    }
+    
+    func updateModel() {
+        let imgPath: String
+        switch family {
+        case .systemLarge:
+            imgPath = largeImgPath
+        case .systemMedium:
+            imgPath = mediumImgPath
+        default:
+            imgPath = smallImgPath
+        }
         let bgImage: UIImage
         if imgPath.count > 0 {
             if File.manager.fileExists(imgPath),
                let image = UIImage(contentsOfFile: imgPath) {
-                JPrint("图片缓存成功！")
                 bgImage = image
             } else {
-                JPrint("图片缓存失败！")
                 bgImage = family.jp.defaultImage
             }
         } else {
-            JPrint("移除图片缓存！")
             bgImage = family.jp.defaultImage
         }
-        
-        return bgImage
+        model = OneDayModel(content: DefaultContent,
+                            bgImage: bgImage)
     }
     
     func checkAPI() {
@@ -177,8 +234,8 @@ struct ContentView: View {
 }
 
 struct OneDayPreviewView: View {
-    let family: WidgetFamily
-    let model: OneDayModel
+    @Binding var family: WidgetFamily
+    var model: OneDayModel
     
     var body: some View {
         switch family {
