@@ -10,11 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CropViewController" customModule="OneDay" customModuleProvider="target">
             <connections>
-                <outlet property="largeBtn" destination="NRW-3d-mU3" id="bwu-be-rOO"/>
-                <outlet property="mediumBtn" destination="2iV-D9-SmP" id="YZf-so-aof"/>
                 <outlet property="operationView" destination="1FT-b5-sa1" id="cyr-7d-MUw"/>
                 <outlet property="recoveryBtn" destination="A1y-op-pDS" id="MpY-UM-Hy2"/>
-                <outlet property="smallBtn" destination="nxB-2H-NAv" id="2nJ-7G-jYO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,20 +23,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1FT-b5-sa1">
                     <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIk-FH-oEg">
-                            <rect key="frame" x="20" y="47.5" width="35" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="35" id="8Bb-TI-kf9"/>
-                                <constraint firstAttribute="height" constant="35" id="MLP-Ny-lZ6"/>
-                            </constraints>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" image="rotate.left.fill" catalog="system"/>
-                            <connections>
-                                <action selector="rotateLeft" destination="-1" eventType="touchUpInside" id="P8e-ty-LUk"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k4S-Wo-zqo">
-                            <rect key="frame" x="75" y="47.5" width="35" height="35"/>
+                            <rect key="frame" x="359" y="32.5" width="35" height="35"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="rotate.right.fill" catalog="system"/>
                             <connections>
@@ -47,7 +32,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0a-5D-mZ4">
-                            <rect key="frame" x="20" y="10" width="43" height="40"/>
+                            <rect key="frame" x="20" y="30" width="43" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="jkQ-Kt-dTQ"/>
                             </constraints>
@@ -60,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1y-op-pDS">
-                            <rect key="frame" x="73" y="10" width="31" height="40"/>
+                            <rect key="frame" x="73" y="30" width="31" height="40"/>
                             <state key="normal" title="恢复">
                                 <color key="titleColor" systemColor="systemPurpleColor"/>
                             </state>
@@ -69,7 +54,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17Z-bp-L6l">
-                            <rect key="frame" x="114" y="10" width="31" height="40"/>
+                            <rect key="frame" x="114" y="30" width="31" height="40"/>
                             <state key="normal" title="裁剪">
                                 <color key="titleColor" systemColor="systemGreenColor"/>
                             </state>
@@ -77,40 +62,16 @@
                                 <action selector="crop" destination="-1" eventType="touchUpInside" id="xIH-vD-Gx6"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxB-2H-NAv">
-                            <rect key="frame" x="281" y="10" width="31" height="40"/>
-                            <state key="normal" title="小杯">
-                                <color key="titleColor" systemColor="systemTealColor"/>
-                            </state>
-                            <state key="selected">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIk-FH-oEg">
+                            <rect key="frame" x="304" y="32.5" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="8Bb-TI-kf9"/>
+                                <constraint firstAttribute="height" constant="35" id="MLP-Ny-lZ6"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="rotate.left.fill" catalog="system"/>
                             <connections>
-                                <action selector="smallScale" destination="-1" eventType="touchUpInside" id="v6j-x0-Uqg"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2iV-D9-SmP">
-                            <rect key="frame" x="322" y="10" width="31" height="40"/>
-                            <state key="normal" title="中杯">
-                                <color key="titleColor" systemColor="systemTealColor"/>
-                            </state>
-                            <state key="selected">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="mediumScale" destination="-1" eventType="touchUpInside" id="4XG-go-vio"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRW-3d-mU3">
-                            <rect key="frame" x="363" y="10" width="31" height="40"/>
-                            <state key="normal" title="大杯">
-                                <color key="titleColor" systemColor="systemTealColor"/>
-                            </state>
-                            <state key="selected">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="largeScale" destination="-1" eventType="touchUpInside" id="j5g-wL-zNB"/>
+                                <action selector="rotateLeft" destination="-1" eventType="touchUpInside" id="P8e-ty-LUk"/>
                             </connections>
                         </button>
                     </subviews>
@@ -119,28 +80,18 @@
                         <constraint firstItem="j0a-5D-mZ4" firstAttribute="leading" secondItem="1FT-b5-sa1" secondAttribute="leading" constant="20" id="0Lb-JQ-BV3"/>
                         <constraint firstAttribute="height" constant="100" id="0bu-4j-mDv"/>
                         <constraint firstItem="17Z-bp-L6l" firstAttribute="height" secondItem="j0a-5D-mZ4" secondAttribute="height" id="4cP-lR-zKB"/>
-                        <constraint firstItem="j0a-5D-mZ4" firstAttribute="top" secondItem="1FT-b5-sa1" secondAttribute="top" constant="10" id="CTe-aL-wjf"/>
+                        <constraint firstAttribute="trailing" secondItem="k4S-Wo-zqo" secondAttribute="trailing" constant="20" id="BJW-0l-Pwx"/>
                         <constraint firstItem="k4S-Wo-zqo" firstAttribute="leading" secondItem="aIk-FH-oEg" secondAttribute="trailing" constant="20" id="Fzp-9j-hu5"/>
                         <constraint firstItem="k4S-Wo-zqo" firstAttribute="centerY" secondItem="aIk-FH-oEg" secondAttribute="centerY" id="Le8-7T-bfB"/>
-                        <constraint firstItem="nxB-2H-NAv" firstAttribute="height" secondItem="j0a-5D-mZ4" secondAttribute="height" id="MwP-kp-Vdz"/>
-                        <constraint firstItem="NRW-3d-mU3" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="PGF-fP-eka"/>
-                        <constraint firstItem="NRW-3d-mU3" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="Psg-Y6-bTu"/>
-                        <constraint firstItem="NRW-3d-mU3" firstAttribute="height" secondItem="j0a-5D-mZ4" secondAttribute="height" id="SVW-CM-vIp"/>
+                        <constraint firstItem="k4S-Wo-zqo" firstAttribute="centerY" secondItem="1FT-b5-sa1" secondAttribute="centerY" id="O0d-Xy-dYD"/>
                         <constraint firstItem="k4S-Wo-zqo" firstAttribute="height" secondItem="aIk-FH-oEg" secondAttribute="height" id="TRq-Fw-JL3"/>
-                        <constraint firstAttribute="trailing" secondItem="NRW-3d-mU3" secondAttribute="trailing" constant="20" id="V6p-Dl-XAG"/>
                         <constraint firstItem="A1y-op-pDS" firstAttribute="leading" secondItem="j0a-5D-mZ4" secondAttribute="trailing" constant="10" id="Wfk-7K-jCK"/>
-                        <constraint firstItem="2iV-D9-SmP" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="fra-Dn-IeA"/>
-                        <constraint firstAttribute="bottom" secondItem="aIk-FH-oEg" secondAttribute="bottom" constant="17.5" id="hpa-BJ-Qjb"/>
+                        <constraint firstItem="j0a-5D-mZ4" firstAttribute="centerY" secondItem="1FT-b5-sa1" secondAttribute="centerY" id="YW9-Wo-fem"/>
                         <constraint firstItem="k4S-Wo-zqo" firstAttribute="width" secondItem="aIk-FH-oEg" secondAttribute="width" id="l4g-c1-yI9"/>
-                        <constraint firstItem="nxB-2H-NAv" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="mAU-U5-V99"/>
                         <constraint firstItem="17Z-bp-L6l" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="tv2-7u-LQG"/>
-                        <constraint firstItem="2iV-D9-SmP" firstAttribute="height" secondItem="j0a-5D-mZ4" secondAttribute="height" id="xQL-YK-h8G"/>
                         <constraint firstItem="A1y-op-pDS" firstAttribute="centerY" secondItem="j0a-5D-mZ4" secondAttribute="centerY" id="xXc-cZ-k03"/>
-                        <constraint firstItem="NRW-3d-mU3" firstAttribute="leading" secondItem="2iV-D9-SmP" secondAttribute="trailing" constant="10" id="y8W-RU-A8s"/>
                         <constraint firstItem="17Z-bp-L6l" firstAttribute="leading" secondItem="A1y-op-pDS" secondAttribute="trailing" constant="10" id="yVe-4x-bLY"/>
                         <constraint firstItem="A1y-op-pDS" firstAttribute="height" secondItem="j0a-5D-mZ4" secondAttribute="height" id="yxb-kg-r1f"/>
-                        <constraint firstItem="2iV-D9-SmP" firstAttribute="leading" secondItem="nxB-2H-NAv" secondAttribute="trailing" constant="10" id="yz9-NM-0X9"/>
-                        <constraint firstItem="aIk-FH-oEg" firstAttribute="leading" secondItem="1FT-b5-sa1" secondAttribute="leading" constant="20" id="zfg-ur-dPc"/>
                     </constraints>
                 </view>
             </subviews>
@@ -163,9 +114,6 @@
         </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -11,14 +11,18 @@ import WidgetKit
 
 struct ImageCroperView: UIViewControllerRepresentable {
     
+    let family: WidgetFamily
     @Binding var cropImage: UIImage?
-    @Binding var family: WidgetFamily
+    @Binding var cachePath: String
+    @Binding var isCroped: Bool
     @Environment(\.presentationMode) var isPresented
     
     func makeUIViewController(context: Context) -> CropViewController {
+        let imageSize = family.jp.imageSize
         let imageCroper = CropViewController()
         imageCroper.image = cropImage
-        imageCroper.family = family
+        imageCroper.resizeWHScale = imageSize.width / imageSize.height
+        imageCroper.cachePath = cachePath
         imageCroper.delegate = context.coordinator // confirming the delegate
         return imageCroper
     }
@@ -42,9 +46,14 @@ class ImageCroperCoordinator: NSObject, CropViewControllerDelegate {
         self.croper = croper
     }
     
-    func cropViewController(_ croper: CropViewController, imageDidFinishCrop iamge: UIImage?) {
-        self.croper.cropImage = iamge
-        self.croper.family = croper.family
+    func cropViewController(_ croper: CropViewController, imageDidFinishCrop cachePath: String) {
+        self.croper.isCroped = true
+        self.croper.cachePath = cachePath
+        self.croper.isPresented.wrappedValue.dismiss()
+    }
+    
+    func dismissCropViewController() {
+        self.croper.isCroped = false
         self.croper.isPresented.wrappedValue.dismiss()
     }
     

@@ -11,32 +11,24 @@ import UIKit
 
 struct ContentView: View {
     
-    @AppStorage("largeImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var largeImgPath: String = ""
-    @AppStorage("largeText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var largeText: String = ""
-    
-    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var mediumImgPath: String = ""
-    @AppStorage("mediumText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var mediumText: String = ""
-    
-    @AppStorage("smallImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var smallImgPath: String = ""
-    @AppStorage("smallText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var smallText: String = ""
+    @State var family: WidgetFamily = .systemSmall
     
     @State var showImagePicker = false
     @State var showImageCroper = false
-    
     @State var photo: UIImage? = nil
-    @State var model: OneDayModel? = nil
-    @State var family: WidgetFamily = WidgetFamily.systemSmall {
-        didSet {
-            guard family != oldValue else { return }
-            updateModel()
-        }
-    }
+    @State var isCroped: Bool = false
+    @State var cacheImgPath: String = ""
+    
+    @State var editText: String = ""
+    
+    @AppStorage(SmallDataKey, store: UserDefaults(suiteName: AppGroupIdentifier))
+    private var smallStorage: Data?
+    
+    @AppStorage(MediumDataKey, store: UserDefaults(suiteName: AppGroupIdentifier))
+    private var mediumStorage: Data?
+    
+    @AppStorage(LargeDataKey, store: UserDefaults(suiteName: AppGroupIdentifier))
+    private var largeStorage: Data?
     
     var body: some View {
         ZStack {
@@ -50,23 +42,6 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding()
                     .padding(.top, 50)
-                
-                Button(action: {
-                    // 刷新所有小组件
-                    WidgetCenter.shared.reloadAllTimelines()
-                }, label: {
-                    Text("刷新小组件")
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.white.opacity(0.85))
-                        .padding()
-                })
-                
-                Button(action: checkAPI, label: {
-                    Text("检测接口")
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.white.opacity(0.85))
-                        .padding()
-                })
                 
                 HStack {
                     Button(action: {
@@ -100,12 +75,41 @@ struct ContentView: View {
                             .cornerRadius(8)
                     })
                 }
+                .padding()
                 
-                HStack {
+                Button(action: reloadWidget, label: {
+                    Text("刷新当前小组件")
+                        .font(.system(size: 15))
+                        .foregroundColor(Color.white.opacity(0.85))
+                        .padding()
+                })
+                
+                HStack(spacing: 0) {
+                    Button(action: {
+                        setupWidgetContent()
+                    }, label: {
+                        Text("自定义\(family.jp.familyName)文案")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding()
+                    })
+                    Spacer()
+                    Button(action: {
+                        saveCacheModel(for: \.text, "")
+                    }, label: {
+                        Text("\(family.jp.familyName)使用Hitokoto文案")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.white.opacity(0.85))
+                            .padding()
+                    })
+                }
+                .padding(.horizontal, 16)
+                
+                HStack(spacing: 0) {
                     Button(action: {
                         showImagePicker.toggle()
                     }, label: {
-                        Text("打开相册设置\(family.jp.familyName)背景")
+                        Text("自定义\(family.jp.familyName)背景 - 相册")
                             .font(.system(size: 15))
                             .foregroundColor(Color.white.opacity(0.85))
                             .padding()
@@ -113,11 +117,9 @@ struct ContentView: View {
                     .sheet(isPresented: $showImagePicker, onDismiss: imagePickDismiss) {
                         ImagePickerView(selectedImage: $photo)
                     }
-                    
+                    Spacer()
                     Button(action: {
-                        guard saveBgImageCache("") else { return }
-                        updateModel()
-                        WidgetCenter.shared.reloadAllTimelines()
+                        saveCacheModel(for: \.imageName, "")
                     }, label: {
                         Text("\(family.jp.familyName)背景使用网络图片")
                             .font(.system(size: 15))
@@ -125,144 +127,170 @@ struct ContentView: View {
                             .padding()
                     })
                 }
+                .padding(.horizontal, 16)
                 
                 Spacer()
-                if let model = self.model {
-                    VStack {
-                        OneDayPreviewView(family: $family, model: model)
+                
+                VStack {
+                    /// 必须得在`ViewBuilder的{}`内使用`AppStorage`，不能封装在另一个函数内获取，否则就不能实时刷新！
+                    if family == .systemLarge {
+                        let model: OneDayModel = .decode(largeStorage) ?? .placeholder(.systemLarge)
+                        OneDayPreviewView(model: model)
+                            .padding()
+                            .padding(.bottom, 30)
+                    } else if family == .systemMedium {
+                        let model: OneDayModel = .decode(mediumStorage) ?? .placeholder(.systemMedium)
+                        OneDayPreviewView(model: model)
+                            .padding()
+                            .padding(.bottom, 30)
+                    } else {
+                        let model: OneDayModel = .decode(smallStorage) ?? .placeholder(.systemSmall)
+                        OneDayPreviewView(model: model)
+                            .padding()
                             .padding(.bottom, 30)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
         }
-        .onAppear() {
-            updateModel()
-        }
         .fullScreenCover(isPresented: $showImageCroper, onDismiss: imageCropDismiss) {
-            ImageCroperView(cropImage: $photo, family: $family)
+            ImageCroperView(family: family,
+                            cropImage: $photo,
+                            cachePath: $cacheImgPath,
+                            isCroped: $isCroped)
         }
     }
     
+}
+
+// MARK:- 缓存+刷新
+extension ContentView {
+    func saveCacheModel(for keyPath: WritableKeyPath<OneDayModel, String>, _ newValue: String) {
+        var model = OneDayStore.fetchModel(family)
+        
+        let oldValue = model[keyPath: keyPath]
+        guard oldValue != newValue else { return }
+//        model[keyPath: keyPath] = newValue
+        
+        switch keyPath {
+        case \.text:
+            model.text = newValue
+            model.isRefreshText = newValue == ""
+            
+        case \.imageName:
+            let oldCachePath = ImageCachePath(oldValue)
+            if File.manager.fileExists(oldCachePath) {
+                File.manager.deleteFile(oldCachePath)
+                JPrint("旧图片删除成功")
+            } else {
+                JPrint("没有旧图片")
+            }
+            
+            model.imageName = newValue
+            model.isRefreshImage = newValue == ""
+            
+        default: break
+        }
+        
+        OneDayStore.cacheModel(model)
+        reloadWidget()
+    }
+    
+    func reloadWidget() {
+        WidgetCenter.shared.getCurrentConfigurations { result in
+            guard case let .success(widgets) = result else { return }
+            guard let widget = widgets.first(where: {
+                $0.family == self.family
+            }) else { return }
+            WidgetCenter.shared.reloadTimelines(ofKind: widget.kind)
+        }
+        
+        // 刷新全部
+        // WidgetCenter.shared.reloadAllTimelines()
+    }
+}
+
+// MARK:- 自定义文案
+extension ContentView {
+    func setupWidgetContent() {
+        if family == .systemLarge {
+            let model: OneDayModel = .decode(largeStorage) ?? .placeholder(.systemLarge)
+            editText = model.isRefreshText ? "" : model.text
+        } else if family == .systemMedium {
+            let model: OneDayModel = .decode(mediumStorage) ?? .placeholder(.systemMedium)
+            editText = model.isRefreshText ? "" : model.text
+        } else {
+            let model: OneDayModel = .decode(smallStorage) ?? .placeholder(.systemSmall)
+            editText = model.isRefreshText ? "" : model.text
+        }
+        
+        AlertWithTextField(title: "自定义文案",
+                           message: family.jp.familyName,
+                           placeholder: "空文本则使用Hitokoto文案",
+                           text: $editText,
+                           confirmText: confirmText)
+    }
+    
+    func confirmText() {
+        let text = editText
+        saveCacheModel(for: \.text, text)
+    }
+}
+
+// MARK:- 自定义背景
+extension ContentView {
     func imagePickDismiss() {
         guard photo != nil else { return }
-        showImageCroper.toggle()
+        
+        let cacheName = ImageCacheName(family)
+        cacheImgPath = ImageCachePath(cacheName)
+        showImageCroper = true
     }
     
     func imageCropDismiss() {
-        let bgImagePath = photo == nil ? "" : family.jp.imageCachePath
-        guard saveBgImageCache(bgImagePath) else { return }
-        updateModel()
         photo = nil
-        WidgetCenter.shared.reloadAllTimelines()
-    }
-    
-    @discardableResult
-    func saveBgImageCache(_ imgPath: String) -> Bool {
-        let oldPath: String
-        switch family {
-        case .systemLarge:
-//            largeText = ""
-            oldPath = largeImgPath
-            largeImgPath = imgPath
-        case .systemMedium:
-//            mediumText = ""
-            oldPath = mediumImgPath
-            mediumImgPath = imgPath
-        default:
-//            smallText = ""
-            oldPath = smallImgPath
-            smallImgPath = imgPath
-        }
+        guard isCroped else { return }
         
-        if imgPath.count > 0 {
-            if File.manager.fileExists(imgPath) {
-                JPrint("图片缓存成功！")
+        let imagePath = cacheImgPath
+        let imageName = (imagePath as NSString).lastPathComponent as String
+        saveCacheModel(for: \.imageName, imageName)
+        
+        if imagePath.count > 0 {
+            if File.manager.fileExists(imagePath) {
+                JPrint("图片缓存成功！", imagePath)
             } else {
                 JPrint("图片缓存失败！")
             }
         } else {
             JPrint("移除图片缓存！")
         }
-        
-        return !(imgPath == "" && oldPath == imgPath)
-    }
-    
-    func updateModel() {
-        let imgPath: String
-        switch family {
-        case .systemLarge:
-            imgPath = largeImgPath
-        case .systemMedium:
-            imgPath = mediumImgPath
-        default:
-            imgPath = smallImgPath
-        }
-        let bgImage: UIImage
-        if imgPath.count > 0 {
-            if File.manager.fileExists(imgPath),
-               let image = UIImage(contentsOfFile: imgPath) {
-                bgImage = image
-            } else {
-                bgImage = family.jp.defaultImage
-            }
-        } else {
-            bgImage = family.jp.defaultImage
-        }
-        model = OneDayModel(content: DefaultContent,
-                            bgImage: bgImage)
-    }
-    
-    func checkAPI() {
-        let content: String
-        let bgImagePath: String
-        switch family {
-        case .systemLarge:
-            content = largeText
-            bgImagePath = largeImgPath
-        case .systemMedium:
-            content = mediumText
-            bgImagePath = mediumImgPath
-        default:
-            content = smallText
-            bgImagePath = smallImgPath
-        }
-        OneDayModel.fetch(context: nil, content: content, bgImagePath: bgImagePath) { model in
-            JPrint(model)
-        }
     }
 }
 
 struct OneDayPreviewView: View {
-    @Binding var family: WidgetFamily
     var model: OneDayModel
-    
     var body: some View {
-        switch family {
-        case .systemLarge:
-            OneDayLargeView(model: model)
-                .frame(width: family.jp.widgetSize.width, height: family.jp.widgetSize.height)
-                .cornerRadius(20)
-                .padding()
-                .modifier(ShadowModifier())
-            
-        case .systemMedium:
-            OneDayMediumView(model: model)
-                .frame(width: family.jp.widgetSize.width, height: family.jp.widgetSize.height)
-                .cornerRadius(20)
-                .padding()
-                .modifier(ShadowModifier())
-            
-        default:
-            OneDaySmallView(model: model)
-                .frame(width: family.jp.widgetSize.width, height: family.jp.widgetSize.height)
-                .cornerRadius(20)
-                .padding()
-                .modifier(ShadowModifier())
+        let widgetSize = model.family.jp.widgetSize
+        OneDayView(model: model)
+            .frame(width: widgetSize.width, height: widgetSize.height)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .modifier(ShadowModifier())
+    }
+}
+
+// MARK:- OneDayView
+struct OneDayView: View {
+    var model: OneDayModel
+    var body: some View {
+        switch model.family {
+        case .systemLarge: OneDayLargeView(model: model)
+        case .systemMedium: OneDayMediumView(model: model)
+        default: OneDaySmallView(model: model)
         }
     }
 }
 
+// MARK:- ContentView_Previews
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

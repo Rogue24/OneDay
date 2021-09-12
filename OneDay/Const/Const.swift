@@ -32,12 +32,18 @@ let hhmmssSSFormatter: DateFormatter = {
 }()
 
 // MARK:- OneDay Data
+let AppGroupIdentifier: String = "group.zhoujianping.OneDay"
+
+let SmallDataKey: String = "smallData"
+let MediumDataKey: String = "mediumData"
+let LargeDataKey: String = "largeData"
+
 let DefaultSmallImage: UIImage = #imageLiteral(resourceName: "train_small")
 let DefaultMediumImage: UIImage = #imageLiteral(resourceName: "train_medium")
 let DefaultLargeImage: UIImage = #imageLiteral(resourceName: "train_large")
 
-let DefaultContent: String = "人类的悲欢并不相通，我只觉得他们吵闹。"
-let FailedContent: String = "很遗憾本次更新失败，请等待下一次更新。"
+let DefaultText: String = "人类的悲欢并不相通，我只觉得他们吵闹。"
+let FailedText: String = "很遗憾本次更新失败，请等待下一次更新。"
 
 let Months: [String] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 let ShotMonths: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -46,6 +52,6 @@ let Weekdays: [String] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"
 let ShotWeekdays: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 let HitokotoURL: String = "https://v1.hitokoto.cn"
-let RandomImageURL: (CGSize) -> String = { size in
-    "https://picsum.photos/\(Int(size.width))/\(Int(size.height))?random=\(arc4random_uniform(1000))"
+let RandomImageURL: (CGSize) -> String = {
+    "https://picsum.photos/\(Int($0.width))/\(Int($0.height))?random=\(arc4random_uniform(2000))"
 }

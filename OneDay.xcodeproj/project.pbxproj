@@ -25,6 +25,9 @@
 		7168494726954AE700283EB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168494626954AE700283EB2 /* ContentView.swift */; };
 		7168494926954AEA00283EB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7168494826954AEA00283EB2 /* Assets.xcassets */; };
 		7168494C26954AEA00283EB2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7168494B26954AEA00283EB2 /* Preview Assets.xcassets */; };
+		716F88B026AEAA580057A71F /* OneDayStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716F88AF26AEAA580057A71F /* OneDayStore.swift */; };
+		716F88B126AEAA580057A71F /* OneDayStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716F88AF26AEAA580057A71F /* OneDayStore.swift */; };
+		71769B6426E9FDE700C111F0 /* AlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71769B6326E9FDE700C111F0 /* AlertWithTextField.swift */; };
 		717713F126959265004239FE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717713F026959265004239FE /* WidgetKit.framework */; };
 		717713F326959265004239FE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717713F226959265004239FE /* SwiftUI.framework */; };
 		717713F626959265004239FE /* OneDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717713F526959265004239FE /* OneDayWidget.swift */; };
@@ -91,6 +94,8 @@
 		7168494826954AEA00283EB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7168494B26954AEA00283EB2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7168494D26954AEA00283EB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		716F88AF26AEAA580057A71F /* OneDayStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayStore.swift; sourceTree = "<group>"; };
+		71769B6326E9FDE700C111F0 /* AlertWithTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithTextField.swift; sourceTree = "<group>"; };
 		717713EE26959265004239FE /* OneDayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneDayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		717713F026959265004239FE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		717713F226959265004239FE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -142,6 +147,7 @@
 			children = (
 				1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */,
 				1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */,
+				71769B6326E9FDE700C111F0 /* AlertWithTextField.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				7177141B2695A71A004239FE /* OneDayData.swift */,
+				716F88AF26AEAA580057A71F /* OneDayStore.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -465,8 +472,10 @@
 				1A01877926ABE00A00F1D064 /* CropViewController.swift in Sources */,
 				717714082695A52A004239FE /* OneDayView.swift in Sources */,
 				7177140E2695A588004239FE /* JP.swift in Sources */,
+				716F88B026AEAA580057A71F /* OneDayStore.swift in Sources */,
 				1A01877326ABDFFE00F1D064 /* ImageCroperView.swift in Sources */,
 				7177140C2695A55B004239FE /* Function.swift in Sources */,
+				71769B6426E9FDE700C111F0 /* AlertWithTextField.swift in Sources */,
 				7168494526954AE700283EB2 /* OneDayApp.swift in Sources */,
 				1A32BA2626975E9D00D1F06F /* WidgetFamily.Extension.swift in Sources */,
 				717714142695A5DA004239FE /* File.swift in Sources */,
@@ -483,6 +492,7 @@
 				717714222695B5DD004239FE /* Asyncs.swift in Sources */,
 				715C19382698304000731B67 /* Literal.Extension.swift in Sources */,
 				717713FB26959267004239FE /* OneDayWidget.intentdefinition in Sources */,
+				716F88B126AEAA580057A71F /* OneDayStore.swift in Sources */,
 				717714232695B5E5004239FE /* Function.swift in Sources */,
 				717714202695B5CE004239FE /* JP.swift in Sources */,
 				717713F626959265004239FE /* OneDayWidget.swift in Sources */,

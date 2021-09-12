@@ -8,44 +8,10 @@
 import WidgetKit
 import SwiftUI
 
-let AppGroupIdentifier = "group.zhoujianping.OneDay"
-
 struct Provider: IntentTimelineProvider {
     
-    @AppStorage("largeImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var largeImgPath: String = ""
-    @AppStorage("largeText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var largeText: String = ""
-    
-    @AppStorage("mediumImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var mediumImgPath: String = ""
-    @AppStorage("mediumText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var mediumText: String = ""
-    
-    @AppStorage("smallImgPath", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var smallImgPath: String = ""
-    @AppStorage("smallText", store: UserDefaults(suiteName: AppGroupIdentifier))
-    var smallText: String = ""
-    
-    func getCache(_ family: WidgetFamily) -> (content: String, bgImagePath: String) {
-        let content: String
-        let bgImagePath: String
-        switch family {
-        case .systemLarge:
-            content = largeText
-            bgImagePath = largeImgPath
-        case .systemMedium:
-            content = mediumText
-            bgImagePath = mediumImgPath
-        default:
-            content = smallText
-            bgImagePath = smallImgPath
-        }
-        return (content, bgImagePath)
-    }
-    
     func placeholder(in context: Context) -> OneDayEntry {
-        OneDayEntry(date: Date(), model: OneDayModel.placeholder(context.family))
+        OneDayEntry(date: Date(), model: OneDayStore.fetchModel(context.family))
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (OneDayEntry) -> ()) {
@@ -53,10 +19,9 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let cache = getCache(context.family)
-        OneDayModel.fetch(context: context,
-                          content: cache.content,
-                          bgImagePath: cache.bgImagePath) { model in
+        OneDayStore.fetchData(context.family) {
+            let model = OneDayStore.fetchModel(context.family)
+            
             /// policy提供下次更新的时间，可填：
             /// .never：永不更新(可通过WidgetCenter更新)
             /// .after(Date)：指定多久之后更新
@@ -71,6 +36,7 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
         }
     }
+    
 }
 
 struct OneDayEntry: TimelineEntry {
@@ -108,23 +74,23 @@ struct OneDayWidget: Widget {
     }
 }
 
-struct OneDayWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        let date = Date()
-        
-        let smallFamily = WidgetFamily.systemSmall
-        let smallEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(smallFamily))
-        OneDayWidgetEntryView(entry: smallEntry)
-            .previewContext(WidgetPreviewContext(family: smallFamily))
-        
-        let mediumFamily = WidgetFamily.systemMedium
-        let mediumEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(mediumFamily))
-        OneDayWidgetEntryView(entry: mediumEntry)
-            .previewContext(WidgetPreviewContext(family: mediumFamily))
-        
-        let largeFamily = WidgetFamily.systemLarge
-        let largeEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(largeFamily))
-        OneDayWidgetEntryView(entry: largeEntry)
-            .previewContext(WidgetPreviewContext(family: largeFamily))
-    }
-}
+//struct OneDayWidget_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let date = Date()
+//
+//        let smallFamily = WidgetFamily.systemSmall
+//        let smallEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(smallFamily))
+//        OneDayWidgetEntryView(entry: smallEntry)
+//            .previewContext(WidgetPreviewContext(family: smallFamily))
+//
+//        let mediumFamily = WidgetFamily.systemMedium
+//        let mediumEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(mediumFamily))
+//        OneDayWidgetEntryView(entry: mediumEntry)
+//            .previewContext(WidgetPreviewContext(family: mediumFamily))
+//
+//        let largeFamily = WidgetFamily.systemLarge
+//        let largeEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(largeFamily))
+//        OneDayWidgetEntryView(entry: largeEntry)
+//            .previewContext(WidgetPreviewContext(family: largeFamily))
+//    }
+//}

@@ -22,10 +22,10 @@ struct OneDaySmallView: View {
     var model = OneDayModel.placeholder(.systemSmall)
     
     var body: some View {
-        let dateInfo = Date().jp.info
+        let dateInfo = Date().jp.info// model.date.jp.info
         
         return ZStack {
-            Image(uiImage: model.bgImage)
+            Image(uiImage: model.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
             
@@ -51,7 +51,7 @@ struct OneDaySmallView: View {
                 
                 Spacer()
                 
-                Text(model.content)
+                Text(model.showText)
                     .font(.custom("PingFangSC", size: 14))
                     .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                     .lineSpacing(4)
@@ -73,10 +73,10 @@ struct OneDayMediumView: View {
     var model = OneDayModel.placeholder(.systemMedium)
     
     var body: some View {
-        let dateInfo = Date().jp.info
+        let dateInfo = Date().jp.info//model.date.jp.info
         
         return ZStack {
-            Image(uiImage: model.bgImage)
+            Image(uiImage: model.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
 
@@ -102,7 +102,7 @@ struct OneDayMediumView: View {
                 
                 Spacer()
                 
-                Text(model.content)
+                Text(model.showText)
                     .font(.custom("PingFangSC", size: 14))
                     .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                     .lineSpacing(4)
@@ -128,11 +128,11 @@ struct OneDayLargeView: View {
     var model = OneDayModel.placeholder(.systemLarge)
     
     var body: some View {
-        let dateInfo = Date().jp.info
+        let dateInfo = Date().jp.info//model.date.jp.info
         
         return VStack(spacing: 0) {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                Image(uiImage: model.bgImage)
+                Image(uiImage: model.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     // minHeight 和 maxHeight 都设置了才能自适应剩余高度，缺一则是以最大宽度按图片宽高比换算后的高度
@@ -163,7 +163,7 @@ struct OneDayLargeView: View {
 
             ZStack {
                 HStack(alignment: .center, spacing: 10) {
-                    Text(model.content)
+                    Text(model.showText)
                         .font(.custom("PingFangSC", size: 15))
                         .foregroundColor(colorScheme == .dark ? Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9007571473)) : Color(#colorLiteral(red: 0.2470588235, green: 0.2470588235, blue: 0.2705882353, alpha: 1)))
                         .lineSpacing(5)

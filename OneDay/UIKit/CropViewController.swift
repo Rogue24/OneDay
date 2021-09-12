@@ -7,10 +7,10 @@
 
 import UIKit
 import JPImageresizerView
-import WidgetKit
 
 protocol CropViewControllerDelegate: AnyObject {
-    func cropViewController(_ croper: CropViewController, imageDidFinishCrop iamge: UIImage?)
+    func cropViewController(_ croper: CropViewController, imageDidFinishCrop cachePath: String)
+    func dismissCropViewController()
 }
 
 class CropViewController: UIViewController {
@@ -18,16 +18,13 @@ class CropViewController: UIViewController {
     @IBOutlet weak var recoveryBtn: UIButton!
     @IBOutlet weak var operationView: UIView!
     
-    @IBOutlet weak var smallBtn: UIButton!
-    @IBOutlet weak var mediumBtn: UIButton!
-    @IBOutlet weak var largeBtn: UIButton!
-    
     private var imageresizerView: JPImageresizerView!
     
     weak var delegate: CropViewControllerDelegate? = nil
     
     var image: UIImage!
-    var family: WidgetFamily = .systemSmall
+    var cachePath: String = ""
+    var resizeWHScale: CGFloat = 0
     
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
     
@@ -48,7 +45,6 @@ class CropViewController: UIViewController {
         let frame = CGRect(x: 0, y: statusBarH, width: PortraitScreenWidth, height: PortraitScreenHeight - statusBarH - diffTabBarH - 100)
         
         // 1.初始配置
-        let imageSize = family.jp.imageSize
         let configure = JPImageresizerConfigure.defaultConfigure(with: image) { c in
             _ = c
                 .jp_viewFrame(frame)
@@ -56,7 +52,7 @@ class CropViewController: UIViewController {
                 .jp_frameType(.classicFrameType)
                 .jp_contentInsets(.init(top: 16, left: 16, bottom: 16, right: 16))
                 .jp_animationCurve(.easeInOut)
-                .jp_resizeWHScale(imageSize.width / imageSize.height)
+                .jp_resizeWHScale(self.resizeWHScale)
                 .jp_isArbitrarily(false)
         }
 
@@ -72,10 +68,6 @@ class CropViewController: UIViewController {
         // 3.添加到视图上
         view.insertSubview(imageresizerView, at: 0)
         self.imageresizerView = imageresizerView
-        
-        smallBtn.isSelected = family == .systemSmall
-        mediumBtn.isSelected = family == .systemMedium
-        largeBtn.isSelected = family == .systemLarge
     }
 }
 
@@ -95,7 +87,7 @@ extension CropViewController {
 // MARK:- 监听返回/恢复/裁剪事件
 extension CropViewController {
     @IBAction func goBack() {
-        delegate?.cropViewController(self, imageDidFinishCrop: nil)
+        delegate?.dismissCropViewController()
     }
     
     @IBAction func recover() {
@@ -104,39 +96,24 @@ extension CropViewController {
     
     @IBAction func crop() {
         view.isUserInteractionEnabled = false
-        File.manager.deleteFile(family.jp.imageCachePath)
-        imageresizerView.cropPicture(withCacheURL: URL(fileURLWithPath: family.jp.imageCachePath), errorBlock: { url, reason in
-            File.manager.deleteFile(url?.path)
-            JPrint("裁剪失败", reason)
-        }) { [weak self] result in
+        
+        File.manager.deleteFile(cachePath)
+        
+        imageresizerView.cropPicture(withCacheURL: URL(fileURLWithPath: cachePath), errorBlock: { [weak self] url, reason in
             guard let self = self else { return }
             self.view.isUserInteractionEnabled = true
-            self.delegate?.cropViewController(self, imageDidFinishCrop: result?.image)
+            File.manager.deleteFile(url?.path)
+            JPrint("裁剪失败", reason)
+        }) { [weak self] in
+            guard let self = self else { return }
+            self.view.isUserInteractionEnabled = true
+            
+            guard let result = $0, result.isCacheSuccess else {
+                self.delegate?.dismissCropViewController()
+                return
+            }
+            
+            self.delegate?.cropViewController(self, imageDidFinishCrop: result.cacheURL?.path ?? self.cachePath)
         }
-    }
-}
-
-// MARK:- 监听比例切换事件
-extension CropViewController {
-    private func setFamily(_ family: WidgetFamily) {
-        self.family = family
-        smallBtn.isSelected = family == .systemSmall
-        mediumBtn.isSelected = family == .systemMedium
-        largeBtn.isSelected = family == .systemLarge
-        
-        let imageSize = family.jp.imageSize
-        imageresizerView.resizeWHScale = imageSize.width / imageSize.height
-    }
-    
-    @IBAction func smallScale() {
-        setFamily(.systemSmall)
-    }
-    
-    @IBAction func mediumScale() {
-        setFamily(.systemMedium)
-    }
-    
-    @IBAction func largeScale() {
-        setFamily(.systemLarge)
     }
 }
