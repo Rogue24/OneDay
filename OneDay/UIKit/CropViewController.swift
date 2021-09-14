@@ -54,6 +54,7 @@ class CropViewController: UIViewController {
                 .jp_animationCurve(.easeInOut)
                 .jp_resizeWHScale(self.resizeWHScale)
                 .jp_isArbitrarily(false)
+                .jp_isShowGridlinesWhenDragging(true)
         }
 
         // 2.创建imageresizerView
