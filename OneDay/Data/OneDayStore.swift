@@ -25,6 +25,7 @@ func ImageCacheName(_ family: WidgetFamily, date: Date = Date()) -> String {
 }
 
 func ImageCachePath(_ name: String) -> String {
+    guard name.count > 0 else { return "" }
     var cachePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppGroupIdentifier)!.path
     cachePath += "/"
     cachePath += name
