@@ -8,7 +8,7 @@
 import SwiftUI
 import WidgetKit
 
-// MARK:- 自定义Modifier
+// MARK: - 自定义Modifier
 struct ShadowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -17,7 +17,7 @@ struct ShadowModifier: ViewModifier {
     }
 }
 
-// MARK:- Small Widget
+// MARK: - Small Widget
 struct OneDaySmallView: View {
     var model = OneDayModel.placeholder(.systemSmall)
     
@@ -68,7 +68,7 @@ struct OneDaySmallView: View {
     }
 }
 
-// MARK:- Medium Widget
+// MARK: - Medium Widget
 struct OneDayMediumView: View {
     var model = OneDayModel.placeholder(.systemMedium)
     
@@ -120,7 +120,7 @@ struct OneDayMediumView: View {
 
 }
 
-// MARK:- Large Widget
+// MARK: - Large Widget
 struct OneDayLargeView: View {
     static let bottomContentHeight: CGFloat = 100
     @Environment(\.colorScheme) var colorScheme

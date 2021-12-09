@@ -26,7 +26,7 @@ struct Provider: IntentTimelineProvider {
             /// .never：永不更新(可通过WidgetCenter更新)
             /// .after(Date)：指定多久之后更新
             /// .atEnd：指定Widget通过你提供的entries的Date更新。
-            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: Date())!
+            let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
             
             /// entries提供下次更新的数据
             let entry = OneDayEntry(date: refreshDate, model: model)
@@ -74,23 +74,23 @@ struct OneDayWidget: Widget {
     }
 }
 
-//struct OneDayWidget_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let date = Date()
-//
-//        let smallFamily = WidgetFamily.systemSmall
-//        let smallEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(smallFamily))
-//        OneDayWidgetEntryView(entry: smallEntry)
-//            .previewContext(WidgetPreviewContext(family: smallFamily))
-//
-//        let mediumFamily = WidgetFamily.systemMedium
-//        let mediumEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(mediumFamily))
-//        OneDayWidgetEntryView(entry: mediumEntry)
-//            .previewContext(WidgetPreviewContext(family: mediumFamily))
-//
-//        let largeFamily = WidgetFamily.systemLarge
-//        let largeEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(largeFamily))
-//        OneDayWidgetEntryView(entry: largeEntry)
-//            .previewContext(WidgetPreviewContext(family: largeFamily))
-//    }
-//}
+struct OneDayWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        let date = Date()
+
+        let smallFamily = WidgetFamily.systemSmall
+        let smallEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(smallFamily))
+        OneDayWidgetEntryView(entry: smallEntry)
+            .previewContext(WidgetPreviewContext(family: smallFamily))
+
+        let mediumFamily = WidgetFamily.systemMedium
+        let mediumEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(mediumFamily))
+        OneDayWidgetEntryView(entry: mediumEntry)
+            .previewContext(WidgetPreviewContext(family: mediumFamily))
+
+        let largeFamily = WidgetFamily.systemLarge
+        let largeEntry = OneDayEntry(date: date, model: OneDayModel.placeholder(largeFamily))
+        OneDayWidgetEntryView(entry: largeEntry)
+            .previewContext(WidgetPreviewContext(family: largeFamily))
+    }
+}

@@ -163,7 +163,7 @@ struct ContentView: View {
     
 }
 
-// MARK:- 缓存+刷新
+// MARK: - 缓存+刷新
 extension ContentView {
     func saveCacheModel(for keyPath: WritableKeyPath<OneDayModel, String>, _ newValue: String) {
         var model = OneDayStore.fetchModel(family)
@@ -210,7 +210,7 @@ extension ContentView {
     }
 }
 
-// MARK:- 自定义文案
+// MARK: - 自定义文案
 extension ContentView {
     func setupWidgetContent() {
         if family == .systemLarge {
@@ -237,7 +237,7 @@ extension ContentView {
     }
 }
 
-// MARK:- 自定义背景
+// MARK: - 自定义背景
 extension ContentView {
     func imagePickDismiss() {
         guard photo != nil else { return }
@@ -278,7 +278,7 @@ struct OneDayPreviewView: View {
     }
 }
 
-// MARK:- OneDayView
+// MARK: - OneDayView
 struct OneDayView: View {
     var model: OneDayModel
     var body: some View {
@@ -290,7 +290,7 @@ struct OneDayView: View {
     }
 }
 
-// MARK:- ContentView_Previews
+// MARK: - ContentView_Previews
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

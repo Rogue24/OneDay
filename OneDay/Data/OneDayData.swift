@@ -10,7 +10,7 @@ import WidgetKit
 import KakaJSON
 import SwiftyJSON
 
-// MARK:- Model
+// MARK: - Model
 
 struct Hitokoto: Convertible {
     let id: Int = 0

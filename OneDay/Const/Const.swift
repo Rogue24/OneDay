@@ -31,7 +31,7 @@ let hhmmssSSFormatter: DateFormatter = {
     return formatter
 }()
 
-// MARK:- OneDay Data
+// MARK: - OneDay Data
 let AppGroupIdentifier: String = "group.zhoujianping.OneDay"
 
 let SmallDataKey: String = "smallData"
@@ -53,5 +53,5 @@ let ShotWeekdays: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 let HitokotoURL: String = "https://v1.hitokoto.cn"
 let RandomImageURL: (CGSize) -> String = {
-    "https://picsum.photos/\(Int($0.width))/\(Int($0.height))?random=\(arc4random_uniform(2000))"
+    "https://picsum.photos/\(Int($0.width))/\(Int($0.height))?random=\(arc4random_uniform(5000))"
 }

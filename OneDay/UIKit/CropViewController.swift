@@ -72,7 +72,7 @@ class CropViewController: UIViewController {
     }
 }
 
-// MARK:- 监听Button（旋转）
+// MARK: - 监听Button（旋转）
 extension CropViewController {
     @IBAction func rotateLeft() {
         imageresizerView.isClockwiseRotation = false
@@ -85,7 +85,7 @@ extension CropViewController {
     }
 }
 
-// MARK:- 监听返回/恢复/裁剪事件
+// MARK: - 监听返回/恢复/裁剪事件
 extension CropViewController {
     @IBAction func goBack() {
         delegate?.dismissCropViewController()
