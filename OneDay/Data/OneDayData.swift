@@ -29,23 +29,42 @@ struct Hitokoto: Convertible {
 
 struct OneDayModel: Codable, Identifiable {
     
-    var id = UUID()
-    
-    let familyRawValue: Int
-    var text: String
-    var imageName: String
-    var date: Date
-    
-    var isRefreshText: Bool = true
-    var isRefreshImage: Bool = true
-    var isRefreshDate: Bool = true
-    
-    enum CodingKeys: String, CodingKey {
-        case familyRawValue, text, imageName, date, isRefreshText, isRefreshImage, isRefreshDate
+    struct RefreshOptions: OptionSet {
+        var rawValue: Int = 0
+        static let text = Self(rawValue: 1 << 1)
+        static let image = Self(rawValue: 1 << 2)
+        static let all = Self(rawValue: 1 << 1 + 1 << 2)
     }
     
-    static func placeholder(_ family: WidgetFamily) -> OneDayModel {
-        OneDayModel(family: family, text: DefaultText, date: Date())
+    var id = UUID()
+    
+    /// 小/中/大杯
+    let familyRawValue: Int
+    
+    /// 文案
+    var text: String
+    /// 图片文件名
+    var imageName: String
+    /// 日期
+    var date: Date
+    
+    /// 是否本地文案
+    var isLocalText: Bool = false
+    /// 是否本地图片
+    var isLocalImage: Bool = false
+    /// 是否自设日期
+    var isLocalDate: Bool = false
+    
+    /// 刷新类型（Int类型，用于存储）
+    var refreshOptionsRawValue: Int = RefreshOptions.all.rawValue
+    /// 刷新类型
+    var refreshOptions: RefreshOptions {
+        set { refreshOptionsRawValue = newValue.rawValue }
+        get { RefreshOptions(rawValue: refreshOptionsRawValue) }
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case familyRawValue, text, imageName, date, isLocalText, isLocalImage, isLocalDate, refreshOptionsRawValue
     }
     
     init(family: WidgetFamily, text: String = "", imageName: String = "", date: Date) {
@@ -57,24 +76,43 @@ struct OneDayModel: Codable, Identifiable {
     
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
+        
         familyRawValue = try c.decode(Int.self, forKey: .familyRawValue)
+        
         text = try c.decode(String.self, forKey: .text)
         imageName = try c.decode(String.self, forKey: .imageName)
         date = try c.decode(Date.self, forKey: .date)
-        isRefreshText = try c.decode(Bool.self, forKey: .isRefreshText)
-        isRefreshImage = try c.decode(Bool.self, forKey: .isRefreshImage)
-        isRefreshDate = try c.decode(Bool.self, forKey: .isRefreshDate)
+        
+        if text != "" {
+            isLocalText = try c.decode(Bool.self, forKey: .isLocalText)
+        }
+        
+        if imageName != "" {
+            isLocalImage = try c.decode(Bool.self, forKey: .isLocalImage)
+        }
+        
+        isLocalDate = try c.decode(Bool.self, forKey: .isLocalDate)
+        
+        refreshOptionsRawValue = try c.decode(Int.self, forKey: .refreshOptionsRawValue)
+        if refreshOptionsRawValue == 0 {
+            refreshOptionsRawValue = RefreshOptions.all.rawValue
+        }
     }
     
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
+        
         try c.encode(familyRawValue, forKey: .familyRawValue)
+        
         try c.encode(text, forKey: .text)
         try c.encode(imageName, forKey: .imageName)
         try c.encode(date, forKey: .date)
-        try c.encode(isRefreshText, forKey: .isRefreshText)
-        try c.encode(isRefreshImage, forKey: .isRefreshImage)
-        try c.encode(isRefreshDate, forKey: .isRefreshDate)
+        
+        try c.encode(isLocalText, forKey: .isLocalText)
+        try c.encode(isLocalImage, forKey: .isLocalImage)
+        try c.encode(isLocalDate, forKey: .isLocalDate)
+        
+        try c.encode(refreshOptionsRawValue, forKey: .refreshOptionsRawValue)
     }
     
 }
@@ -106,5 +144,13 @@ extension OneDayModel {
     static func decode(_ data: Data?) -> OneDayModel? {
         guard let data = data else { return nil }
         return try? JSONDecoder().decode(OneDayModel.self, from: data)
+    }
+    
+    static func placeholder(_ family: WidgetFamily) -> OneDayModel {
+        OneDayModel(family: family, text: DefaultText, date: Date())
+    }
+    
+    static func build(withData data: Data?, family: WidgetFamily) -> OneDayModel {
+        .decode(data) ?? .placeholder(family)
     }
 }

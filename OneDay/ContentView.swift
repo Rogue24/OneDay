@@ -132,19 +132,22 @@ struct ContentView: View {
                 Spacer()
                 
                 VStack {
-                    /// 必须得在`ViewBuilder的{}`内使用`AppStorage`，不能封装在另一个函数内获取，否则就不能实时刷新！
-                    if family == .systemLarge {
-                        let model: OneDayModel = .decode(largeStorage) ?? .placeholder(.systemLarge)
+                    /// 必须得在`ViewBuilder的{}`内用到`AppStorage`的变量，不能封装在另一个函数内获取，否则就不能实时刷新！！！
+                    switch family {
+                    case .systemLarge:
+                        let model = OneDayModel.build(withData: largeStorage, family: .systemLarge)
                         OneDayPreviewView(model: model)
                             .padding()
                             .padding(.bottom, 30)
-                    } else if family == .systemMedium {
-                        let model: OneDayModel = .decode(mediumStorage) ?? .placeholder(.systemMedium)
+                        
+                    case .systemMedium:
+                        let model = OneDayModel.build(withData: mediumStorage, family: .systemMedium)
                         OneDayPreviewView(model: model)
                             .padding()
                             .padding(.bottom, 30)
-                    } else {
-                        let model: OneDayModel = .decode(smallStorage) ?? .placeholder(.systemSmall)
+                        
+                    default:
+                        let model = OneDayModel.build(withData: smallStorage, family: .systemSmall)
                         OneDayPreviewView(model: model)
                             .padding()
                             .padding(.bottom, 30)
@@ -175,9 +178,14 @@ extension ContentView {
         switch keyPath {
         case \.text:
             model.text = newValue
-            model.isRefreshText = newValue == ""
+            model.isLocalText = newValue != ""
+            model.refreshOptions = .text
             
         case \.imageName:
+            model.imageName = newValue
+            model.isLocalImage = newValue != ""
+            model.refreshOptions = .image
+            
             let oldCachePath = ImageCachePath(oldValue)
             if File.manager.fileExists(oldCachePath) {
                 File.manager.deleteFile(oldCachePath)
@@ -186,10 +194,8 @@ extension ContentView {
                 JPrint("没有旧图片")
             }
             
-            model.imageName = newValue
-            model.isRefreshImage = newValue == ""
-            
-        default: break
+        default:
+            break
         }
         
         OneDayStore.cacheModel(model)
@@ -197,11 +203,12 @@ extension ContentView {
     }
     
     func reloadWidget() {
+        // TODO: 当前什么杯，就刷新哪个杯
+        
+        // 这里只刷新名为“OneDayWidget”的小组件，包括该小组件的大、中、小杯（目前也就这一种小组件）
         WidgetCenter.shared.getCurrentConfigurations { result in
             guard case let .success(widgets) = result else { return }
-            guard let widget = widgets.first(where: {
-                $0.family == self.family
-            }) else { return }
+            guard let widget = widgets.first(where: { $0.family == family }) else { return }
             WidgetCenter.shared.reloadTimelines(ofKind: widget.kind)
         }
         
@@ -213,16 +220,8 @@ extension ContentView {
 // MARK: - 自定义文案
 extension ContentView {
     func setupWidgetContent() {
-        if family == .systemLarge {
-            let model: OneDayModel = .decode(largeStorage) ?? .placeholder(.systemLarge)
-            editText = model.isRefreshText ? "" : model.text
-        } else if family == .systemMedium {
-            let model: OneDayModel = .decode(mediumStorage) ?? .placeholder(.systemMedium)
-            editText = model.isRefreshText ? "" : model.text
-        } else {
-            let model: OneDayModel = .decode(smallStorage) ?? .placeholder(.systemSmall)
-            editText = model.isRefreshText ? "" : model.text
-        }
+        let model = OneDayStore.fetchModel(family)
+        editText = model.isLocalText ? model.text : ""
         
         AlertWithTextField(title: "自定义文案",
                            message: family.jp.familyName,
@@ -252,18 +251,16 @@ extension ContentView {
         guard isCroped else { return }
         
         let imagePath = cacheImgPath
-        let imageName = (imagePath as NSString).lastPathComponent as String
-        saveCacheModel(for: \.imageName, imageName)
+        var imageName = (imagePath as NSString).lastPathComponent as String
         
-        if imagePath.count > 0 {
-            if File.manager.fileExists(imagePath) {
-                JPrint("图片缓存成功！", imagePath)
-            } else {
-                JPrint("图片缓存失败！")
-            }
+        if File.manager.fileExists(imagePath) {
+            JPrint("图片缓存成功：", imagePath)
         } else {
-            JPrint("移除图片缓存！")
+            JPrint("图片缓存失败：", imagePath)
+            imageName = ""
         }
+        
+        saveCacheModel(for: \.imageName, imageName)
     }
 }
 

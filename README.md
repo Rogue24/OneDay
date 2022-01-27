@@ -44,8 +44,8 @@
 func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
     // 请求数据
     OneDayModel.fetch(family: context.family) { model in
-        // 设置下一步刷新时间：10分钟后
-        let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: Date())!
+        // 设置下一步刷新时间：1小时后
+        let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         
         // entries提供下次更新的数据
         let entry = OneDayEntry(date: refreshDate, model: model)
@@ -56,7 +56,7 @@ func getTimeline(for configuration: ConfigurationIntent, in context: Context, co
     }
 }
 ```
-代码里是设置了30分钟后刷新的，然而实际上都是30~35分钟左右才刷新一次，也不知道是不是我弄错了，有待解决...
+代码里是设置了1小时后刷新的，然而实际上都是60~65分钟左右才刷新一次，也不知道是不是我弄错了，有待解决...
 
 ## 最后
 

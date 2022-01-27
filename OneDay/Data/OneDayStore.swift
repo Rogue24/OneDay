@@ -90,11 +90,11 @@ class OneDayStore: ObservableObject {
     static func fetchModel(_ family: WidgetFamily) -> OneDayModel {
         switch family {
         case .systemLarge:
-            return .decode(largeData) ?? .placeholder(.systemLarge)
+            return .build(withData: largeData, family: .systemLarge)
         case .systemMedium:
-            return .decode(mediumData) ?? .placeholder(.systemMedium)
+            return .build(withData: mediumData, family: .systemMedium)
         default:
-            return .decode(smallData) ?? .placeholder(.systemSmall)
+            return .build(withData: smallData, family: .systemSmall)
         }
     }
     
@@ -106,18 +106,25 @@ class OneDayStore: ObservableObject {
             var imageName = cacheModel.imageName
             let date = cacheModel.date
             
-            let isRefreshText = cacheModel.isRefreshText || text == ""
-            let isRefreshImage = cacheModel.isRefreshImage || imageName == ""
-            let isRefreshDate = cacheModel.isRefreshDate
+            let isLocalText = cacheModel.isLocalText
+            let isLocalImage = cacheModel.isLocalImage
+            let isLocalDate = cacheModel.isLocalDate
+            
+            let refreshOptions = cacheModel.refreshOptions
+            
+            let isRefreshText = !isLocalText || text == ""
+            let isRefreshImage = !isLocalImage || imageName == ""
+            let isRefreshDate = !isLocalDate
             
             let refreshDone: (_ text: String, _ imageName: String) -> () = {
                 var model = OneDayModel(family: family,
                                         text: $0,
                                         imageName: $1,
                                         date: isRefreshDate ? Date() : date)
-                model.isRefreshText = isRefreshText
-                model.isRefreshImage = isRefreshImage
-                model.isRefreshDate = isRefreshDate
+                
+                model.isLocalText = $0 != "" && !isRefreshText
+                model.isLocalImage = $1 != "" && !isRefreshImage
+                model.isLocalDate = !isRefreshDate
                 
                 Asyncs.main {
                     self.cacheModel(model)
@@ -125,69 +132,87 @@ class OneDayStore: ObservableObject {
                 }
             }
             
-            if !isRefreshText && !isRefreshImage {
-                refreshDone(text, imageName)
-                return
-            }
-            
-            let group = DispatchGroup()
             let printMsg: (_ msg: String) -> () = {
                 let familyName = family.jp.familyName
                 JPrint(familyName, $0)
             }
             
-            if isRefreshText {
+            printMsg("-----【刷新开始】-----")
+            
+            if !isRefreshText, !isRefreshImage {
+                printMsg("完全不用刷新")
+                printMsg("-----【刷新结束】-----")
+                refreshDone(text, imageName)
+                return
+            }
+            
+            let group = DispatchGroup()
+            
+            if isRefreshText, refreshOptions.contains(.text) {
+                printMsg("需要刷新文案")
+                
                 text = FailedText
-                let hitokotoTask = URLSession.shared.dataTask(with: URL(string: HitokotoURL)!) { (data, _, error) in
+                let hitokotoTask = URLSession.shared.dataTask(with: URL(string: HitokotoURL)!) { data, _, error in
                     defer { group.leave() }
+                    
                     if let error = error {
-                        printMsg(String(format: "文案请求失败: %@", error as CVarArg))
+                        printMsg(String(format: "文案请求失败，【error】：%@", error as CVarArg))
                         return
                     }
+                    
                     guard let data = data, data.count > 0 else {
-                        printMsg("文案请求失败: 没有数据")
+                        printMsg("文案请求失败，【error】：没有数据")
                         return
                     }
+                    
                     guard let dict = JSON(data).dictionary else {
-                        printMsg("文案请求失败: 数据解析失败")
+                        printMsg("文案请求失败，【error】：数据解析失败")
                         return
                     }
+                    
                     let hitokoto = dict.kj.model(Hitokoto.self)
-                    printMsg(String(format: "文案请求成功: %@", hitokoto.hitokoto))
+                    printMsg(String(format: "文案请求成功：%@", hitokoto.hitokoto))
                     text = hitokoto.hitokoto
                 }
                 group.enter()
                 hitokotoTask.resume()
+                
             } else {
-                printMsg("不用请求文案")
+                printMsg("不用刷新文案")
             }
             
-            if isRefreshImage {
+            if isRefreshImage, refreshOptions.contains(.image) {
+                printMsg("需要刷新图片")
+                
                 File.manager.deleteFile(ImageCachePath(imageName))
                 imageName = ""
-                let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { (data, _, _) in
+                let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { data, _, _ in
                     defer { group.leave() }
+                    
                     guard let data = data else {
-                        printMsg("图片请求失败")
+                        printMsg("图片请求失败，【error】：没有数据")
                         return
                     }
+                    
                     let cacheName = ImageCacheName(family)
                     let cachePath = ImageCachePath(cacheName)
                     do {
                         try data.write(to: URL(fileURLWithPath: cachePath))
                         imageName = cacheName
-                        printMsg("\(cachePath) --- 图片缓存成功")
+                        printMsg("图片缓存成功：\(cachePath)")
                     } catch {
-                        printMsg(String(format: "%@ --- 图片缓存失败: %@", cachePath, error as CVarArg))
+                        printMsg(String(format: "图片缓存失败：%@，【error】：%@", cachePath, error as CVarArg))
                     }
                 }
                 group.enter()
                 imageTask.resume()
+                
             } else {
-                printMsg("不用请求图片")
+                printMsg("不用刷新图片")
             }
             
             group.notify(queue: DispatchQueue.global()) {
+                printMsg("-----【刷新结束】-----")
                 refreshDone(text, imageName)
             }
         }

@@ -23,6 +23,13 @@ func AlertWithTextField(title: String?, message: String?, placeholder: String?, 
            str.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
             finalText = str as String
         }
+        
+        // 本来就空了，现在又是空的，那就没必要刷新了
+        // 另外只要不是空的就得存一次，防止【手写的】跟【网络请求的】是一样的情况，手写的就得缓存
+        if finalText == "", text.wrappedValue == finalText {
+            return
+        }
+        
         text.wrappedValue = finalText
         confirmText?()
     })
