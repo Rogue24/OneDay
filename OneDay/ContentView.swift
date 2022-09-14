@@ -270,8 +270,8 @@ struct OneDayPreviewView: View {
         let widgetSize = model.family.jp.widgetSize
         OneDayView(model: model)
             .frame(width: widgetSize.width, height: widgetSize.height)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .modifier(ShadowModifier())
+            .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .baseShadow()
     }
 }
 

@@ -9,7 +9,6 @@ import Foundation
 
 extension Date: JPCompatible {}
 extension JP where Base == Date {
-    
     typealias DateInfo = (year: String, month: String, day: String, weekday: String)
     
     var info: DateInfo {
@@ -29,8 +28,5 @@ extension JP where Base == Date {
         return formatter
     }()
     
-    var timeString: String {
-        Self.formatter.string(from: base)
-    }
-    
+    var timeString: String { Self.formatter.string(from: base) }
 }

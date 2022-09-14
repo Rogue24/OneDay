@@ -27,6 +27,8 @@
 		7168494C26954AEA00283EB2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7168494B26954AEA00283EB2 /* Preview Assets.xcassets */; };
 		716F88B026AEAA580057A71F /* OneDayStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716F88AF26AEAA580057A71F /* OneDayStore.swift */; };
 		716F88B126AEAA580057A71F /* OneDayStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716F88AF26AEAA580057A71F /* OneDayStore.swift */; };
+		717619A328D1D38300645055 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717619A228D1D38200645055 /* Modifier.swift */; };
+		717619A428D1D38300645055 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717619A228D1D38200645055 /* Modifier.swift */; };
 		71769B6426E9FDE700C111F0 /* AlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71769B6326E9FDE700C111F0 /* AlertWithTextField.swift */; };
 		717713F126959265004239FE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717713F026959265004239FE /* WidgetKit.framework */; };
 		717713F326959265004239FE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717713F226959265004239FE /* SwiftUI.framework */; };
@@ -95,6 +97,7 @@
 		7168494B26954AEA00283EB2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7168494D26954AEA00283EB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		716F88AF26AEAA580057A71F /* OneDayStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayStore.swift; sourceTree = "<group>"; };
+		717619A228D1D38200645055 /* Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		71769B6326E9FDE700C111F0 /* AlertWithTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithTextField.swift; sourceTree = "<group>"; };
 		717713EE26959265004239FE /* OneDayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneDayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		717713F026959265004239FE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -247,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				717714072695A52A004239FE /* OneDayView.swift */,
+				717619A228D1D38200645055 /* Modifier.swift */,
 				1A01877026ABDFFE00F1D064 /* Coordinator */,
 			);
 			path = View;
@@ -481,6 +485,7 @@
 				717714142695A5DA004239FE /* File.swift in Sources */,
 				7177141C2695A71A004239FE /* OneDayData.swift in Sources */,
 				715C19342698230500731B67 /* Const.swift in Sources */,
+				717619A328D1D38300645055 /* Modifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +507,7 @@
 				717ACE3726AAB20B00BA82A6 /* File.swift in Sources */,
 				7177141F2695B5C5004239FE /* OneDayData.swift in Sources */,
 				715C19352698230500731B67 /* Const.swift in Sources */,
+				717619A428D1D38300645055 /* Modifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +651,7 @@
 				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = OneDay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -670,7 +676,7 @@
 				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = OneDay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -692,7 +698,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = OneDayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -716,7 +722,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = OneDayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

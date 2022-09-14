@@ -117,7 +117,7 @@ extension JP where Base == WidgetFamily {
     var imageSize: CGSize {
         var imageSize = widgetSize
         if base == .systemLarge {
-            imageSize.height -= OneDayLargeView.bottomContentHeight
+            imageSize.height -= 100
         }
         imageSize.width *= ScreenScale
         imageSize.height *= ScreenScale
