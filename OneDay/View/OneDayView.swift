@@ -98,6 +98,8 @@ struct OneDayMediumView: View {
 
 // MARK: - Large Widget
 struct OneDayLargeView: View {
+    static let bottomContentHeight: CGFloat = 100
+    
     let dateInfo = Date().jp.info
     var model = OneDayModel.placeholder(.systemLarge)
     @Environment(\.colorScheme) var colorScheme
@@ -108,7 +110,7 @@ struct OneDayLargeView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.bottom, 100)
+                .padding(.bottom, OneDayLargeView.bottomContentHeight)
             
             Color.black.opacity(0.15)
                 .frame(maxWidth:. infinity, maxHeight: .infinity)
@@ -143,7 +145,7 @@ struct OneDayLargeView: View {
                 }
                 .padding(.horizontal, 24)
                 .frame(maxWidth: .infinity)
-                .frame(height: 100)
+                .frame(height: OneDayLargeView.bottomContentHeight)
                 .background(colorScheme == .dark ? Color(red: 0.2, green: 0.2, blue: 0.25) : Color.white)
             }
             .frame(maxWidth:. infinity, maxHeight: .infinity)
