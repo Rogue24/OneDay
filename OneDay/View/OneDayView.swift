@@ -104,13 +104,11 @@ struct OneDayLargeView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            VStack(spacing: 0) {
-                Image(uiImage: model.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Color.clear.frame(height: 100)
-            }
+            Image(uiImage: model.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.bottom, 100)
             
             Color.black.opacity(0.15)
                 .frame(maxWidth:. infinity, maxHeight: .infinity)
