@@ -1,5 +1,5 @@
 //
-//  UIScreen.Extension.swift
+//  UIScreen+Extension.swift
 //  Neves_Example
 //
 //  Created by 周健平 on 2020/10/9.

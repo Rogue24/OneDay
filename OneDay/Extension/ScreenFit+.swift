@@ -1,5 +1,5 @@
 //
-//  ScreenFit.Extension.swift
+//  ScreenFit+Extension.swift
 //  Neves
 //
 //  Created by 周健平 on 2021/7/14.

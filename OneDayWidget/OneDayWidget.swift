@@ -49,14 +49,21 @@ struct OneDayWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
-        switch family {
-        case .systemMedium:
-            OneDayMediumView(model: entry.model)
-        case .systemLarge:
-            OneDayLargeView(model: entry.model)
-        default:
-            OneDaySmallView(model: entry.model)
+        Group {
+            switch family {
+            case .systemMedium:
+                OneDayMediumView(model: entry.model)
+            case .systemLarge:
+                OneDayLargeView(model: entry.model)
+            default:
+                OneDaySmallView(model: entry.model)
+            }
         }
+        // 小组件间距：Preview上为0，模拟器或真机才可获取到实际的间距
+        // PS: 最新系统版本貌似默认为0了，无须再手动挪回去。
+//        .disableWidgetContentMargins()
+        // 小组件背景
+        .widgetBackground(Color.white)
     }
 }
 
@@ -71,6 +78,7 @@ struct OneDayWidget: Widget {
         .configurationDisplayName("One Day")
         .description("用心去感受每一天的心境，生命就在每天的生活里。")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .disableWidgetContentMargins()
     }
 }
 

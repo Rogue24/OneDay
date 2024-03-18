@@ -177,6 +177,6 @@ struct OneDayView_Previews: PreviewProvider {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(.foreground)
+        .background(.background)
     }
 }
