@@ -7,10 +7,12 @@
 
 import UIKit
 import SwiftUI
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 struct ImagePickerView: UIViewControllerRepresentable {
     
-    @Binding var selectedImage: UIImage?
+    @Binding var selectedImage: Data?
     @Environment(\.presentationMode) var isPresented
 //    var sourceType: UIImagePickerController.SourceType
         
@@ -40,8 +42,10 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        self.picker.selectedImage = selectedImage
+        if let mediaType = info[.mediaType] as? String, mediaType == UTType.image.identifier,
+           let url = info[.imageURL] as? URL, let data = try? Data(contentsOf: url) {
+            self.picker.selectedImage = data
+        }
         self.picker.isPresented.wrappedValue.dismiss()
     }
 }

@@ -22,7 +22,7 @@ class CropViewController: UIViewController {
     
     weak var delegate: CropViewControllerDelegate? = nil
     
-    var image: UIImage!
+    var image: Data!
     var cachePath: String = ""
     var resizeWHScale: CGFloat = 0
     
@@ -45,7 +45,7 @@ class CropViewController: UIViewController {
         let frame = CGRect(x: 0, y: statusBarH, width: PortraitScreenWidth, height: PortraitScreenHeight - statusBarH - diffTabBarH - 100)
         
         // 1.初始配置
-        let configure = JPImageresizerConfigure.defaultConfigure(with: image) { c in
+        let configure = JPImageresizerConfigure.defaultConfigure(withImageData: image) { c in
             _ = c
                 .jp_viewFrame(frame)
                 .jp_bgColor(.black)
@@ -100,13 +100,33 @@ extension CropViewController {
         
         File.manager.deleteFile(cachePath)
         
+        if cachePath.hasSuffix(".gif") {
+            imageresizerView.cropGIF(withCacheURL: URL(fileURLWithPath: cachePath)) { [weak self] url, reason in
+                guard let self else { return }
+                self.view.isUserInteractionEnabled = true
+                File.manager.deleteFile(url?.path)
+                JPrint("裁剪gif失败", reason)
+            } complete: { [weak self] in
+                guard let self else { return }
+                self.view.isUserInteractionEnabled = true
+                
+                guard let result = $0, result.isCacheSuccess else {
+                    self.delegate?.dismissCropViewController()
+                    return
+                }
+                
+                self.delegate?.cropViewController(self, imageDidFinishCrop: result.cacheURL?.path ?? self.cachePath)
+            }
+            return
+        }
+        
         imageresizerView.cropPicture(withCacheURL: URL(fileURLWithPath: cachePath), errorBlock: { [weak self] url, reason in
-            guard let self = self else { return }
+            guard let self else { return }
             self.view.isUserInteractionEnabled = true
             File.manager.deleteFile(url?.path)
-            JPrint("裁剪失败", reason)
+            JPrint("裁剪图片失败", reason)
         }) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.view.isUserInteractionEnabled = true
             
             guard let result = $0, result.isCacheSuccess else {

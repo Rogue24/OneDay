@@ -12,6 +12,14 @@
 		004760E02BA7ED0600B4360C /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004760DE2BA7ECF500B4360C /* View+.swift */; };
 		004760E42BA7EF2D00B4360C /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004760E32BA7EF2D00B4360C /* EnvironmentValues.swift */; };
 		004760E52BA7EF3000B4360C /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004760E32BA7EF2D00B4360C /* EnvironmentValues.swift */; };
+		007EF71C2C607141002D4C54 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EF71B2C607141002D4C54 /* UIImage+.swift */; };
+		007EF71D2C607141002D4C54 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EF71B2C607141002D4C54 /* UIImage+.swift */; };
+		007EF71F2C6078A8002D4C54 /* OneDayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EF71E2C6078A8002D4C54 /* OneDayImageView.swift */; };
+		007EF7202C6078A8002D4C54 /* OneDayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007EF71E2C6078A8002D4C54 /* OneDayImageView.swift */; };
+		007EF7212C6122AF002D4C54 /* ClockHandRotationKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */; };
+		007EF7222C6122AF002D4C54 /* ClockHandRotationKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		007EF7242C6122F9002D4C54 /* ClockHandRotationKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */; };
+		007EF7252C6122F9002D4C54 /* ClockHandRotationKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A01877326ABDFFE00F1D064 /* ImageCroperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */; };
 		1A01877426ABDFFE00F1D064 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */; };
 		1A01877826ABE00A00F1D064 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A01877626ABE00A00F1D064 /* CropViewController.xib */; };
@@ -71,6 +79,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		007EF7232C6122AF002D4C54 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				007EF7222C6122AF002D4C54 /* ClockHandRotationKit.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		007EF7262C6122F9002D4C54 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				007EF7252C6122F9002D4C54 /* ClockHandRotationKit.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7177140026959267004239FE /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +118,9 @@
 		004760DC2BA7EB4D00B4360C /* OneDayWidget+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OneDayWidget+.swift"; sourceTree = "<group>"; };
 		004760DE2BA7ECF500B4360C /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		004760E32BA7EF2D00B4360C /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
+		007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ClockHandRotationKit.xcframework; sourceTree = "<group>"; };
+		007EF71B2C607141002D4C54 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		007EF71E2C6078A8002D4C54 /* OneDayImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayImageView.swift; sourceTree = "<group>"; };
 		1A01877126ABDFFE00F1D064 /* ImageCroperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCroperView.swift; sourceTree = "<group>"; };
 		1A01877226ABDFFE00F1D064 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		1A01877626ABE00A00F1D064 /* CropViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropViewController.xib; sourceTree = "<group>"; };
@@ -136,6 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007EF7212C6122AF002D4C54 /* ClockHandRotationKit.xcframework in Frameworks */,
 				E877BD79D3D6DC1F48853C4C /* Pods_OneDay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007EF7242C6122F9002D4C54 /* ClockHandRotationKit.xcframework in Frameworks */,
 				717713F326959265004239FE /* SwiftUI.framework in Frameworks */,
 				717713F126959265004239FE /* WidgetKit.framework in Frameworks */,
 				558A0EF42EED7B1D11B82138 /* Pods_OneDayWidgetExtension.framework in Frameworks */,
@@ -167,6 +202,14 @@
 				004760E32BA7EF2D00B4360C /* EnvironmentValues.swift */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		007EF70D2C606E19002D4C54 /* ThirdLib */ = {
+			isa = PBXGroup;
+			children = (
+				007EF70E2C606E45002D4C54 /* ClockHandRotationKit.xcframework */,
+			);
+			path = ThirdLib;
 			sourceTree = "<group>";
 		};
 		1A01877026ABDFFE00F1D064 /* Coordinator */ = {
@@ -235,6 +278,7 @@
 				717714062695A4DE004239FE /* Const */,
 				717714102695A5CB004239FE /* Tool */,
 				1A01877526ABE00A00F1D064 /* UIKit */,
+				007EF70D2C606E19002D4C54 /* ThirdLib */,
 				7168494826954AEA00283EB2 /* Assets.xcassets */,
 				7168494D26954AEA00283EB2 /* Info.plist */,
 				7168494A26954AEA00283EB2 /* Preview Content */,
@@ -277,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				717714072695A52A004239FE /* OneDayView.swift */,
+				007EF71E2C6078A8002D4C54 /* OneDayImageView.swift */,
 				1A01877026ABDFFE00F1D064 /* Coordinator */,
 			);
 			path = View;
@@ -310,6 +355,7 @@
 				1A32BA2826975F1700D1F06F /* Date+.swift */,
 				1A32BA2526975E9D00D1F06F /* WidgetFamily+.swift */,
 				004760DE2BA7ECF500B4360C /* View+.swift */,
+				007EF71B2C607141002D4C54 /* UIImage+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -336,6 +382,7 @@
 				7168493F26954AE700283EB2 /* Resources */,
 				7177140026959267004239FE /* Embed App Extensions */,
 				F767500E08A7DC21CFA71FB3 /* [CP] Embed Pods Frameworks */,
+				007EF7232C6122AF002D4C54 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -355,6 +402,7 @@
 				717713EA26959265004239FE /* Sources */,
 				717713EB26959265004239FE /* Frameworks */,
 				717713EC26959265004239FE /* Resources */,
+				007EF7262C6122F9002D4C54 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -494,10 +542,12 @@
 			files = (
 				7177141A2695A639004239FE /* UIScreen+.swift in Sources */,
 				1A32BA2926975F1700D1F06F /* Date+.swift in Sources */,
+				007EF71F2C6078A8002D4C54 /* OneDayImageView.swift in Sources */,
 				717714122695A5D4004239FE /* Asyncs.swift in Sources */,
 				7168494726954AE700283EB2 /* ContentView.swift in Sources */,
 				1A01877426ABDFFE00F1D064 /* ImagePickerView.swift in Sources */,
 				717714182695A608004239FE /* ScreenFit+.swift in Sources */,
+				007EF71C2C607141002D4C54 /* UIImage+.swift in Sources */,
 				715C19372698304000731B67 /* Literal+.swift in Sources */,
 				717713FC26959267004239FE /* OneDayWidget.intentdefinition in Sources */,
 				1A01877926ABE00A00F1D064 /* CropViewController.swift in Sources */,
@@ -540,6 +590,8 @@
 				7177141F2695B5C5004239FE /* OneDayData.swift in Sources */,
 				715C19352698230500731B67 /* Const.swift in Sources */,
 				717619A428D1D38300645055 /* Modifiers.swift in Sources */,
+				007EF7202C6078A8002D4C54 /* OneDayImageView.swift in Sources */,
+				007EF71D2C607141002D4C54 /* UIImage+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

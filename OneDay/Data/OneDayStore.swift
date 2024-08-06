@@ -24,7 +24,19 @@ func ImageCacheName(_ family: WidgetFamily, date: Date = Date()) -> String {
     }
 }
 
-func ImageCachePath(_ name: String) -> String {
+func GifCacheName(_ family: WidgetFamily, date: Date = Date()) -> String {
+    let dateStr = String(format: "%.0lf", date.timeIntervalSince1970)
+    switch family {
+    case .systemLarge:
+        return "large_\(dateStr).gif"
+    case .systemMedium:
+        return "medium_\(dateStr).gif"
+    default:
+        return "small_\(dateStr).gif"
+    }
+}
+
+func CachePath(_ name: String) -> String {
     guard name.count > 0 else { return "" }
     var cachePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppGroupIdentifier)!.path
     cachePath += "/"
@@ -104,6 +116,7 @@ class OneDayStore: ObservableObject {
             
             var text = cacheModel.text
             var imageName = cacheModel.imageName
+            let gifName = cacheModel.gifName
             let date = cacheModel.date
             
             let isLocalText = cacheModel.isLocalText
@@ -113,13 +126,14 @@ class OneDayStore: ObservableObject {
             let refreshOptions = cacheModel.refreshOptions
             
             let isRefreshText = !isLocalText || text == ""
-            let isRefreshImage = !isLocalImage || imageName == ""
+            let isRefreshImage = gifName == "" ? (!isLocalImage || imageName == "") : false
             let isRefreshDate = !isLocalDate
             
-            let refreshDone: (_ text: String, _ imageName: String) -> () = {
+            let refreshDone: (_ text: String, _ imageName: String, _ gifName: String) -> () = {
                 var model = OneDayModel(family: family,
                                         text: $0,
                                         imageName: $1,
+                                        gifName: $2,
                                         date: isRefreshDate ? Date() : date)
                 
                 model.isLocalText = $0 != "" && !isRefreshText
@@ -142,7 +156,7 @@ class OneDayStore: ObservableObject {
             if !isRefreshText, !isRefreshImage {
                 printMsg("完全不用刷新")
                 printMsg("-----【刷新结束】-----")
-                refreshDone(text, imageName)
+                refreshDone(text, imageName, gifName)
                 return
             }
             
@@ -184,7 +198,7 @@ class OneDayStore: ObservableObject {
             if isRefreshImage, refreshOptions.contains(.image) {
                 printMsg("需要刷新图片")
                 
-                File.manager.deleteFile(ImageCachePath(imageName))
+                File.manager.deleteFile(CachePath(imageName))
                 imageName = ""
                 let imageTask = URLSession.shared.dataTask(with: URL(string: RandomImageURL(family.jp.imageSize))!) { data, _, _ in
                     defer { group.leave() }
@@ -195,7 +209,7 @@ class OneDayStore: ObservableObject {
                     }
                     
                     let cacheName = ImageCacheName(family)
-                    let cachePath = ImageCachePath(cacheName)
+                    let cachePath = CachePath(cacheName)
                     do {
                         try data.write(to: URL(fileURLWithPath: cachePath))
                         imageName = cacheName
@@ -213,7 +227,7 @@ class OneDayStore: ObservableObject {
             
             group.notify(queue: DispatchQueue.global()) {
                 printMsg("-----【刷新结束】-----")
-                refreshDone(text, imageName)
+                refreshDone(text, imageName, gifName)
             }
         }
     }

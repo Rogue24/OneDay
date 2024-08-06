@@ -10,6 +10,7 @@
 
 ![medium_small_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/medium_small_example.jpg)
 ![large_example](https://github.com/Rogue24/JPCover/raw/master/OneDay/large_example.jpg)
+![gif_widget](https://github.com/Rogue24/JPCover/raw/master/OneDay/gif_widget.gif)
 
 小组件每隔30分钟左右会刷新一次，并且提供**小杯**、**中杯**、**大杯**三种尺寸。
 
@@ -17,9 +18,11 @@
 
 ## 数据源
 
-- 文案由 [Hitokoto](https://hitokoto.cn) 提供，很多不错的段子和毒鸡汤，接口是：https://v1.hitokoto.cn
+- 文案由 [Hitokoto](https://hitokoto.cn) 提供，很多不错的段子和毒鸡汤，接口是：https://v1.hitokoto.cn。
 
 - 图片则来自于：[LoremPicsum](https://picsum.photos)，这个网站能提供各种精致图片，可以拼接自定义参数获取不同尺寸、滤镜的图片。
+
+- GIF的实现来自：[SwingAnimation](https://github.com/TopWidgets/SwingAnimation) + [DynamicWidget](https://github.com/wyqACoffer/DynamicWidget)。
 
 ## 当前进度
 
@@ -35,7 +38,7 @@
 目前已完成：
 
     ✅ 可以编辑文案；
-    ✅ 可以选择照片设置背景图。
+    ✅ 可以选择照片/GIF设置背景图。
     
 ## 疑惑
 

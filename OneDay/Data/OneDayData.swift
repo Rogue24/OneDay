@@ -33,7 +33,8 @@ struct OneDayModel: Codable, Identifiable {
         var rawValue: Int = 0
         static let text = Self(rawValue: 1 << 1)
         static let image = Self(rawValue: 1 << 2)
-        static let all = Self(rawValue: 1 << 1 + 1 << 2)
+        static let gif = Self(rawValue: 1 << 3)
+        static let all = Self(rawValue: 1 << 1 + 1 << 2 + 1 << 3)
     }
     
     var id = UUID()
@@ -45,6 +46,8 @@ struct OneDayModel: Codable, Identifiable {
     var text: String
     /// 图片文件名
     var imageName: String
+    /// GIF文件名
+    var gifName: String
     /// 日期
     var date: Date
     
@@ -64,13 +67,14 @@ struct OneDayModel: Codable, Identifiable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case familyRawValue, text, imageName, date, isLocalText, isLocalImage, isLocalDate, refreshOptionsRawValue
+        case familyRawValue, text, imageName, gifName, date, isLocalText, isLocalImage, isLocalDate, refreshOptionsRawValue
     }
     
-    init(family: WidgetFamily, text: String = "", imageName: String = "", date: Date) {
+    init(family: WidgetFamily, text: String = "", imageName: String = "", gifName: String = "", date: Date) {
         self.familyRawValue = family.rawValue
         self.text = text
         self.imageName = imageName
+        self.gifName = gifName
         self.date = date
     }
     
@@ -81,6 +85,7 @@ struct OneDayModel: Codable, Identifiable {
         
         text = try c.decode(String.self, forKey: .text)
         imageName = try c.decode(String.self, forKey: .imageName)
+        gifName = try c.decode(String.self, forKey: .gifName)
         date = try c.decode(Date.self, forKey: .date)
         
         if text != "" {
@@ -106,6 +111,7 @@ struct OneDayModel: Codable, Identifiable {
         
         try c.encode(text, forKey: .text)
         try c.encode(imageName, forKey: .imageName)
+        try c.encode(gifName, forKey: .gifName)
         try c.encode(date, forKey: .date)
         
         try c.encode(isLocalText, forKey: .isLocalText)
@@ -127,12 +133,25 @@ extension OneDayModel {
     }
     
     var image: UIImage {
-        let imagePath = ImageCachePath(imageName)
+        let imagePath = CachePath(imageName)
         if File.manager.fileExists(imagePath), let image = UIImage(contentsOfFile: imagePath) {
             return image
         } else {
             return family.jp.defaultImage
         }
+    }
+    
+    var gif: UIImage.GifResult? {
+        guard gifName.count > 0 else { return nil }
+        
+        let gifPath = CachePath(gifName)
+        guard File.manager.fileExists(gifPath), 
+              let gifData = try? Data(contentsOf: URL(fileURLWithPath: gifPath)) 
+        else {
+            return nil
+        }
+        
+        return UIImage.decodeGIF(gifData)
     }
 }
 

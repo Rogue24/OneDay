@@ -12,7 +12,7 @@ import WidgetKit
 struct ImageCroperView: UIViewControllerRepresentable {
     
     let family: WidgetFamily
-    @Binding var cropImage: UIImage?
+    @Binding var cropImage: Data?
     @Binding var cachePath: String
     @Binding var isCroped: Bool
     @Environment(\.presentationMode) var isPresented

@@ -15,7 +15,7 @@ struct ContentView: View {
     
     @State var showImagePicker = false
     @State var showImageCroper = false
-    @State var photo: UIImage? = nil
+    @State var photo: Data? = nil
     @State var isCroped: Bool = false
     @State var cacheImgPath: String = ""
     
@@ -186,12 +186,35 @@ extension ContentView {
             model.isLocalImage = newValue != ""
             model.refreshOptions = .image
             
-            let oldCachePath = ImageCachePath(oldValue)
+            let oldCachePath = CachePath(oldValue)
             if File.manager.fileExists(oldCachePath) {
                 File.manager.deleteFile(oldCachePath)
                 JPrint("旧图片删除成功")
             } else {
                 JPrint("没有旧图片")
+            }
+            
+            if model.gifName.count > 0 {
+                let oldGifPath = CachePath(model.gifName)
+                if File.manager.fileExists(oldGifPath) {
+                    File.manager.deleteFile(oldGifPath)
+                    JPrint("旧gif删除成功")
+                } else {
+                    JPrint("没有旧gif")
+                }
+            } 
+            model.gifName = ""
+            
+        case \.gifName:
+            model.gifName = newValue
+            model.refreshOptions = .gif
+            
+            let oldCachePath = CachePath(oldValue)
+            if File.manager.fileExists(oldCachePath) {
+                File.manager.deleteFile(oldCachePath)
+                JPrint("旧gif删除成功")
+            } else {
+                JPrint("没有旧gif")
             }
             
         default:
@@ -238,29 +261,51 @@ extension ContentView {
 
 // MARK: - 自定义背景
 extension ContentView {
+    func isGIF(_ data: Data) -> Bool {
+        // GIF 文件头部的长度为 6 个字节
+        guard data.count >= 6 else { return false }
+        let headerData = data.prefix(6)
+        let headerString = String(data: headerData, encoding: .ascii)
+        // 判断字符串是否为 "GIF87a" 或 "GIF89a"
+        return headerString == "GIF87a" || headerString == "GIF89a"
+    }
+    
     func imagePickDismiss() {
-        guard photo != nil else { return }
+        guard let photo else { return }
         
-        let cacheName = ImageCacheName(family)
-        cacheImgPath = ImageCachePath(cacheName)
+        let cacheName: String
+        if isGIF(photo) {
+            cacheName = GifCacheName(family)
+        } else {
+            cacheName = ImageCacheName(family)
+        }
+        cacheImgPath = CachePath(cacheName)
         showImageCroper = true
     }
     
     func imageCropDismiss() {
-        photo = nil
+        guard let photo else { return }
+        self.photo = nil
+        
         guard isCroped else { return }
+        
+        let isGIF = isGIF(photo)
         
         let imagePath = cacheImgPath
         var imageName = (imagePath as NSString).lastPathComponent as String
         
         if File.manager.fileExists(imagePath) {
-            JPrint("图片缓存成功：", imagePath)
+            JPrint("\(isGIF ? "gif" : "图片")缓存成功：", imagePath)
         } else {
-            JPrint("图片缓存失败：", imagePath)
+            JPrint("\(isGIF ? "gif" : "图片")缓存失败：", imagePath)
             imageName = ""
         }
         
-        saveCacheModel(for: \.imageName, imageName)
+        if isGIF {
+            saveCacheModel(for: \.gifName, imageName)
+        } else {
+            saveCacheModel(for: \.imageName, imageName)
+        }
     }
 }
 

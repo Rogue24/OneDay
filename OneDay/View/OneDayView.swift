@@ -45,9 +45,7 @@ struct OneDaySmallView: View {
             Color.black.opacity(0.15)
         )
         .background(
-            Image(uiImage: model.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            OneDayImageView(model: model)
         )
     }
 }
@@ -89,9 +87,7 @@ struct OneDayMediumView: View {
             Color.black.opacity(0.15)
         )
         .background(
-            Image(uiImage: model.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            OneDayImageView(model: model)
         )
     }
 }
@@ -106,9 +102,7 @@ struct OneDayLargeView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Image(uiImage: model.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            OneDayImageView(model: model)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.bottom, OneDayLargeView.bottomContentHeight)
             
