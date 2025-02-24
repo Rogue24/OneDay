@@ -47,7 +47,8 @@ struct OneDayEntry: TimelineEntry {
 struct OneDayWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
-
+//    @State var oneDayFrame: CGRect = .zero // JP_Test：用来查看小组件的尺寸【1】
+    
     var body: some View {
         Group {
             switch family {
@@ -64,6 +65,19 @@ struct OneDayWidgetEntryView: View {
 //        .disableWidgetContentMargins()
         // 小组件背景
         .widgetBackground(Color.white)
+        // JP_Test：用来查看小组件的尺寸【2】
+//        .overlay {
+//            Text("w: \(String(format: "%.0lf", oneDayFrame.width)), h: \(String(format: "%.0lf", oneDayFrame.height))")
+//                .font(.system(size: 15))
+//                .foregroundColor(Color.white.opacity(0.85))
+//                .padding(.all, 8)
+//                .background(.blue)
+//                .cornerRadius(8)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        }
+//        .readFrame(.global, key: OneDayPreferenceKey.self) { value in
+//            oneDayFrame = value
+//        }
     }
 }
 

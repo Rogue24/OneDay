@@ -36,7 +36,7 @@ extension JP where Base == WidgetFamily {
     
     var widgetSize: CGSize {
         switch PortraitScreenWidth {
-        case 428: // 428 x 926 - iPhone 12 Pro Max
+        case 428...: // 428 x 926 - iPhone 12 Pro Max +
             switch base {
             case .systemLarge:
                 return CGSize(width: 364, height: 382)

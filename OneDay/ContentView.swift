@@ -317,6 +317,16 @@ struct OneDayPreviewView: View {
             .frame(width: widgetSize.width, height: widgetSize.height)
             .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .baseShadow()
+            // JP_Test：用来查看小组件的尺寸
+//            .overlay {
+//                Text("w: \(String(format: "%.0lf", widgetSize.width)), h: \(String(format: "%.0lf", widgetSize.height))")
+//                    .font(.system(size: 15))
+//                    .foregroundColor(Color.white.opacity(0.85))
+//                    .padding(.all, 8)
+//                    .background(.blue)
+//                    .cornerRadius(8)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            }
     }
 }
 
