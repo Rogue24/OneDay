@@ -166,8 +166,9 @@ extension View {
 
 // MARK: - 截图
 extension View {
-    private func _preTakeSnapshot() -> (UIGraphicsImageRenderer, UIGraphicsImageRenderer.DrawingActions) {
-        let controller = UIHostingController(rootView: self.edgesIgnoringSafeArea(.all)) // 忽略安全区域
+    private func _buildRenderer() -> (UIGraphicsImageRenderer, UIGraphicsImageRenderer.DrawingActions) {
+        // View -> UIView（注意：要忽略安全区域，否则顶部会有空白）
+        let controller = UIHostingController(rootView: self.edgesIgnoringSafeArea(.all))
         
         // 设置视图的大小
         let targetSize = controller.sizeThatFits(in: UIScreen.main.bounds.size)
@@ -188,12 +189,12 @@ extension View {
     }
     
     func takeSnapshot() -> UIImage {
-        let (renderer, action) = _preTakeSnapshot()
+        let (renderer, action) = _buildRenderer()
         return renderer.image(actions: action)
     }
     
     func takeSnapshot(_ isPNG: Bool) -> Data {
-        let (renderer, action) = _preTakeSnapshot()
+        let (renderer, action) = _buildRenderer()
         return isPNG ?
             renderer.pngData(actions: action) :
             renderer.jpegData(withCompressionQuality: 0.9, actions: action)
