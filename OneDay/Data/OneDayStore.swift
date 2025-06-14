@@ -185,7 +185,7 @@ class OneDayStore: ObservableObject {
                     }
                     
                     let hitokoto = dict.kj.model(Hitokoto.self)
-                    printMsg(String(format: "文案请求成功：%@", hitokoto.hitokoto))
+                    printMsg(String(format: "文案请求成功：%@ --- 出自：%@，作者：%@", hitokoto.hitokoto, hitokoto.from, hitokoto.from_who ?? "unknown"))
                     text = hitokoto.hitokoto
                 }
                 group.enter()

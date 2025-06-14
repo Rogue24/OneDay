@@ -14,11 +14,11 @@ struct Provider: IntentTimelineProvider {
         OneDayEntry(date: Date(), model: OneDayStore.fetchModel(context.family))
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (OneDayEntry) -> ()) {
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (OneDayEntry) -> Void) {
         completion(placeholder(in: context))
     }
 
-    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<OneDayEntry>) -> Void) {
         OneDayStore.fetchData(context.family) {
             let model = OneDayStore.fetchModel(context.family)
             

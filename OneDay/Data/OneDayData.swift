@@ -12,18 +12,31 @@ import SwiftyJSON
 
 // MARK: - Model
 
+// 文档：https://developer.hitokoto.cn/sentence
 struct Hitokoto: Convertible {
+    /// 一言标识
     let id: Int = 0
+    /// 一言唯一标识；可以链接到 https://hitokoto.cn?uuid=[uuid] 查看这个一言的完整信息
     let uuid: String = ""
+    /// 类型。请参考第三节参数的表格
     let type: String = ""
+    /// 一言的出处
     let from: String = ""
+    /// 一言的作者
     let from_who: String? = nil
+    /// 添加者
     let creator: String = ""
+    /// 添加者用户标识
     let creator_uid: Int = 0
+    /// 审核员标识
     let reviewer: Int = 0
+    /// 提交方式
     let commit_from: String = ""
+    /// 添加时间
     let created_at: String = ""
+    /// 一言正文。编码方式 unicode。使用 utf-8。
     let hitokoto: String = ""
+    /// 句子长度
     let length: Int = 0
 }
 
@@ -37,7 +50,7 @@ struct OneDayModel: Codable, Identifiable {
         static let all = Self(rawValue: 1 << 1 + 1 << 2 + 1 << 3)
     }
     
-    var id = UUID()
+    let id = UUID()
     
     /// 小/中/大杯
     let familyRawValue: Int
