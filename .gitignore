@@ -12,6 +12,7 @@ build/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+*.xcuserstate
 *.xccheckout
 profile
 *.moved-aside
@@ -34,5 +35,4 @@ Carthage
 
 #CocoaPods
 Pods
-Podfile.lock
 !Podfile
